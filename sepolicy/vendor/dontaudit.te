@@ -1,1 +1,2 @@
 dontaudit qni self:capability dac_override;
+dontaudit untrusted_app ashmem_device:chr_file open;
