@@ -7,8 +7,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceViewHolder;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceViewHolder;
 import android.widget.TextView;
 
 import org.lineageos.settings.device.dac.R;

@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.support.v14.preference.PreferenceFragment;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.Preference.OnPreferenceChangeListener;
-import android.support.v14.preference.SwitchPreference;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.SeekBarPreference;
+import androidx.preference.PreferenceFragment;
+import androidx.preference.Preference;
+import androidx.preference.Preference.OnPreferenceChangeListener;
+import androidx.preference.SwitchPreference;
+import androidx.preference.ListPreference;
+import androidx.preference.SeekBarPreference;
 import android.util.Log;
 import android.view.MenuItem;
 
