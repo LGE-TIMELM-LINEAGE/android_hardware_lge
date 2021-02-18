@@ -131,4 +131,5 @@ void init_target_properties()
 void vendor_load_properties() {
     LOG(INFO) << "Loading vendor specific properties";
     init_target_properties();
+    property_override("ro.apex.updatable", "false");
 }
