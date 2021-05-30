@@ -7,6 +7,7 @@
 /dev/block/platform/soc/1d84000\.ufshc/by-name/power                     u:object_r:power_block_device:s0
 /dev/block/platform/soc/1d84000\.ufshc/by-name/secdata                   u:object_r:sec_block_device:s0
 /dev/block/platform/soc/1d84000\.ufshc/by-name/sns                       u:object_r:sns_block_device:s0
+/dev/block/vbswap0                                            u:object_r:swap_block_device:s0
 
 # Devices
 /dev/goodix_fp            u:object_r:fingerprintd_device:s0
