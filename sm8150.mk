@@ -399,6 +399,10 @@ PRODUCT_PACKAGES += \
     libqti_vndfwk_detect \
     libqti_vndfwk_detect.vendor
 
+# QTI
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/configs/qti_whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/qti_whitelist.xml
+
 # RCS
 PRODUCT_PACKAGES += \
     rcs_service_aidl \
