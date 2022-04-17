@@ -120,6 +120,7 @@ USE_DEVICE_SPECIFIC_GPS := true
 # HIDL
 DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/manifest.xml
+ODM_MANIFEST_FILES := $(COMMON_PATH)/manifest-qva.xml
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_lge_msmnile

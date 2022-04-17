@@ -204,26 +204,6 @@
         <fqname>@1.0::IOffloadControl/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>com.dsi.ant</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IAnt</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IAnt/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>com.qualcomm.qti.dpm.api</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IdpmQmi</name>
-            <instance>dpmQmiService</instance>
-        </interface>
-        <fqname>@1.0::IdpmQmi/dpmQmiService</fqname>
-    </hal>
-    <hal format="hidl">
          <name>com.qualcomm.qti.imscmservice</name>
          <transport>hwbinder</transport>
          <version>2.2</version>
@@ -364,15 +344,6 @@
         <fqname>@1.0::IAlarm/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.qti.hardware.bluetooth_audio</name>
-        <transport>hwbinder</transport>
-        <version>2.0</version>
-        <interface>
-            <name>IBluetoothAudioProvidersFactory</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
         <name>vendor.qti.hardware.bluetooth_sar</name>
         <transport>hwbinder</transport>
         <version>1.1</version>
@@ -380,16 +351,6 @@
             <name>IBluetoothSar</name>
             <instance>default</instance>
         </interface>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.btconfigstore</name>
-        <transport>hwbinder</transport>
-        <version>2.0</version>
-        <interface>
-            <name>IBTConfigStore</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@2.0::IBTConfigStore/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.cacert</name>
@@ -444,15 +405,6 @@
         </interface>
         <fqname>@1.0::IIWlan/slot1</fqname>
         <fqname>@1.0::IIWlan/slot2</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.data.latency</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>ILinkLatency</name>
-            <instance>default</instance>
-        </interface>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.dsp</name>
@@ -635,16 +587,6 @@
         </interface>
         <fqname>@1.0::IUimRemoteServiceServer/uimRemoteServer0</fqname>
         <fqname>@1.0::IUimRemoteServiceServer/uimRemoteServer1</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.seccam</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>ISecCam</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::ISecCam/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.sensorscalibrate</name>
