@@ -277,9 +277,7 @@ $(foreach f,$(wildcard $(COMMON_PATH)/rootdir/bin/*.sh),\
 # IPACM
 PRODUCT_PACKAGES += \
     ipacm \
-    IPACM_cfg.xml \
-    libipanat \
-    liboffloadhal
+    IPACM_cfg.xml
 
 # IPC router config
 PRODUCT_COPY_FILES += \
