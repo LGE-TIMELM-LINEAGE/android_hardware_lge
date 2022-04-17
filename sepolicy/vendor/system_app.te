@@ -1,4 +1,11 @@
 allow system_app sysfs_zram:dir r_file_perms;
 
+allow system_app tmpfs:file read;
 # allow system_app to interact with pasr hal
 #hal_client_domain(system_app, hal_pasrmanager)
+allow system_app vendor_sysfs_graphics:file rw_file_perms;
+allow system_app vendor_sysfs_graphics:dir { search };
+allow system_app incremental_prop:file { getattr map open read };
+
+# Zygote
+allow system_app zygote:unix_stream_socket { getopt };
