@@ -477,6 +477,10 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@2.0-service.multihal \
     libsensorndkbridge
 
+# Storage health HAL
+PRODUCT_PACKAGES += \
+    android.hardware.health.storage@1.0-service
+
 # Telephony
 PRODUCT_PACKAGES += \
     qti-telephony-hidl-wrapper \
