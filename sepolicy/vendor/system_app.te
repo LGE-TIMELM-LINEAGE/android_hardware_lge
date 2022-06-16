@@ -9,3 +9,6 @@ allow system_app incremental_prop:file { getattr map open read };
 
 # Zygote
 allow system_app zygote:unix_stream_socket { getopt };
+
+# Allow KProfiles to be adjusted by a system app
+allow system_app sysfs_kprofiles:file rw_file_perms;

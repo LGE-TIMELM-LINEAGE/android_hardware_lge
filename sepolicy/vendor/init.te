@@ -24,3 +24,6 @@ allow init vendor_sysfs_kgsl:file { open read };
 allow init vendor_sysfs_kgsl:lnk_file read;
 allow init hal_powerhint_hwservice:hwservice_manager { add find };
 allow init hal_lgdata_hwservice:hwservice_manager { add find };
+
+# Allow init to set attribute to sysfs_kprofiles
+allow init sysfs_kprofiles:file { setattr };

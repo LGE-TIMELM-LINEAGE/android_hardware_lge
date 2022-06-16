@@ -2,6 +2,9 @@
 type op_file, file_type;
 type op_audio_file, file_type;
 
+# KProfiles
+type sysfs_kprofiles, sysfs_type, fs_type;
+
 # LG
 type persdata_file, file_type;
 
