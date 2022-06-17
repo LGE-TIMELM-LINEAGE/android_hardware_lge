@@ -65,6 +65,12 @@ vendor.lge.audio.hifi_rec.offset_gain=39
 vendor.lge.fm_gain_control_headset=0.7
 vendor.lge.fm_gain_control_speaker=1.0
 
+# App launch prefetching (IORapd)
+ro.iorapd.enable=false
+iorapd.perfetto.enable=false
+iorapd.readahead.enable=false
+persist.device_config.runtime_native_boot.iorap_readahead_enable=false
+
 # Bluetooth
 persist.bluetooth.a2dp_offload.cap=sbc-aac-aptx-aptxhd-ldac
 persist.bluetooth.a2dp_offload.disabled=false
