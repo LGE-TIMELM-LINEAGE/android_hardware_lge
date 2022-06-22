@@ -74,6 +74,10 @@ AB_OTA_POSTINSTALL_CONFIG += \
 PRODUCT_PACKAGES += \
     otapreopt_script
 
+# ANT+
+PRODUCT_PACKAGES += \
+    AntHalService-Soong
+
 # Atrace
 PRODUCT_PACKAGES += \
     android.hardware.atrace@1.0-service
