@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 The LineageOS Project
+ * Copyright (C) 2021-2022 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,29 +14,31 @@
  * limitations under the License.
  */
 
-#ifndef VENDOR_LINEAGE_LIVEDISPLAY_V2_0_SDM_CONSTANTS_H
-#define VENDOR_LINEAGE_LIVEDISPLAY_V2_0_SDM_CONSTANTS_H
+#pragma once
+
+#include <hidl/MQDescriptor.h>
+#include <hidl/Status.h>
+#include <vendor/lineage/livedisplay/2.1/IAntiFlicker.h>
 
 namespace vendor {
 namespace lineage {
 namespace livedisplay {
-namespace V2_0 {
+namespace V2_1 {
 namespace implementation {
 
-#define DPPS_BUF_SIZE 64
+using ::android::hardware::Return;
+using ::android::hardware::Void;
+using ::android::sp;
 
-#define FOSS_PROPERTY "ro.vendor.display.foss"
-#define FOSS_ON "foss:on"
-#define FOSS_OFF "foss:off"
+class AntiFlicker : public IAntiFlicker {
+  public:
+    // Methods from ::vendor::lineage::livedisplay::V2_1::IAntiFlicker follow.
+    Return<bool> isEnabled() override;
+    Return<bool> setEnabled(bool enabled) override;
+};
 
-#define COLOR_BALANCE_FEATURE 3
-#define DISPLAY_MODES_FEATURE 4
-#define PICTURE_ADJUSTMENT_FEATURE 1
-
-}  // namespace sdm
-}  // namespace V2_0
+}  // namespace implementation
+}  // namespace V2_1
 }  // namespace livedisplay
 }  // namespace lineage
 }  // namespace vendor
-
-#endif  // VENDOR_LINEAGE_LIVEDISPLAY_V2_0_SDM_CONSTANTS_H

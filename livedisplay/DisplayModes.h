@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-#ifndef VENDOR_LINEAGE_LIVEDISPLAY_V2_0_DISPLAYMODES_H
-#define VENDOR_LINEAGE_LIVEDISPLAY_V2_0_DISPLAYMODES_H
+#ifndef VENDOR_LINEAGE_LIVEDISPLAY_V2_1_DISPLAYMODES_H
+#define VENDOR_LINEAGE_LIVEDISPLAY_V2_1_DISPLAYMODES_H
 
 #include <hidl/MQDescriptor.h>
 #include <hidl/Status.h>
-#include <vendor/lineage/livedisplay/2.0/IDisplayModes.h>
+#include <livedisplay/sdm/SDMController.h>
+#include <vendor/lineage/livedisplay/2.1/IDisplayModes.h>
 #include <map>
 
 namespace vendor {
 namespace lineage {
 namespace livedisplay {
-namespace V2_0 {
+namespace V2_1 {
 namespace implementation {
 
 using ::android::hardware::Return;
@@ -34,9 +35,14 @@ using ::android::sp;
 
 class DisplayModes : public IDisplayModes {
   public:
-    DisplayModes();
+    DisplayModes(std::shared_ptr<V2_0::sdm::SDMController> controller);
 
-    // Methods from ::vendor::lineage::livedisplay::V2_0::IDisplayModes follow.
+    using DisplayModeSetCallback = std::function<void()>;
+    inline void registerDisplayModeSetCallback(DisplayModeSetCallback callback) {
+        mOnDisplayModeSet = callback;
+    }
+
+    // Methods from ::vendor::lineage::livedisplay::V2_1::IDisplayModes follow.
     Return<void> getDisplayModes(getDisplayModes_cb resultCb) override;
     Return<void> getCurrentDisplayMode(getCurrentDisplayMode_cb resultCb) override;
     Return<void> getDefaultDisplayMode(getDefaultDisplayMode_cb ResultCb) override;
@@ -44,17 +50,20 @@ class DisplayModes : public IDisplayModes {
 
   private:
     struct ModeInfo {
-        const char* name;
-        const char* value;
+        std::string name;
+        std::string value;
     };
     static const std::map<int32_t, ModeInfo> kModeMap;
+    std::shared_ptr<V2_0::sdm::SDMController> mController;
+    int32_t mCurrentModeId;
     int32_t mDefaultModeId;
+    DisplayModeSetCallback mOnDisplayModeSet;
 };
 
-}  // namespace sdm
-}  // namespace V2_0
+}  // namespace implementation
+}  // namespace V2_1
 }  // namespace livedisplay
 }  // namespace lineage
 }  // namespace vendor
 
-#endif  // VENDOR_LINEAGE_LIVEDISPLAY_V2_0_DISPLAYMODES_H
+#endif  // VENDOR_LINEAGE_LIVEDISPLAY_V2_1_DISPLAYMODES_H
