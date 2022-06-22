@@ -208,6 +208,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.3-service.clearkey
 
+# GMS Permissions
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/configs/privapp-permissions-gms.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-gms.xml
+
 # GPS
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/gps/flp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/flp.conf \
