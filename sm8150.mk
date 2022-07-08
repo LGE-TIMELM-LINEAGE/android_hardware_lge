@@ -76,7 +76,7 @@ PRODUCT_PACKAGES += \
 
 # Atrace
 PRODUCT_PACKAGES += \
-    android.hardware.atrace@1.0-service.pixel
+    android.hardware.atrace@1.0-service
 
 # Audio
 PRODUCT_PACKAGES += \
