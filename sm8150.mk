@@ -440,6 +440,10 @@ PRODUCT_PACKAGES += \
     rcs_service_api \
     rcs_service_api.xml
 
+# Resolution Changer
+PRODUCT_PACKAGES += \
+    ResolutionChanger
+
 # RIL
 PRODUCT_PACKAGES += \
     android.hardware.radio@1.5.vendor \
