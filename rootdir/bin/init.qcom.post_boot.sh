@@ -725,6 +725,24 @@ function configure_read_ahead_kb_values() {
     fi
 }
 
+function configure_vbswap_parameters() {
+    echo 4294967296 > /sys/devices/virtual/block/vbswap0/disksize
+    mkswap /dev/block/vbswap0
+    swapon /dev/block/vbswap0
+
+    # Set swappiness reflecting the device's RAM size
+    RamStr=$(cat /proc/meminfo | grep MemTotal)
+    RamMB=$((${RamStr:16:8} / 1024))
+    if [ $RamMB -le 6144 ]; then
+        echo 190 > /proc/sys/vm/swappiness
+    elif [ $RamMB -le 8192 ]; then
+        echo 160 > /proc/sys/vm/swappiness
+    else
+        echo 130 > /proc/sys/vm/swappiness
+    fi
+    echo 0 > /proc/sys/vm/page-cluster
+}
+
 function disable_core_ctl() {
     if [ -f /sys/devices/system/cpu/cpu0/core_ctl/enable ]; then
         echo 0 > /sys/devices/system/cpu/cpu0/core_ctl/enable
@@ -778,12 +796,10 @@ function configure_memory_parameters() {
 ProductName=`getprop ro.product.name`
 low_ram=`getprop ro.config.low_ram`
 
-if [ "$ProductName" == "msmnile" ] || [ "$ProductName" == "kona" ] || [ "$ProductName" == "sdmshrike_au" ]; then
-      # Enable ZRAM
-      configure_zram_parameters
+if  [ "$ProductName" == "msmnile" ] || [ "$ProductName" == "kona" ] || [ "$ProductName" == "sdmshrike_au" ] || [ "$ProductName" == *"flashlmdd"* ]; then
+      # Enable vbswap
+      configure_vbswap_parameters
       configure_read_ahead_kb_values
-      echo 0 > /proc/sys/vm/page-cluster
-      echo 100 > /proc/sys/vm/swappiness
 else
     arch_type=`uname -m`
 
@@ -894,11 +910,9 @@ else
 
     # Disable wsf for all targets beacause we are using efk.
     # wsf Range : 1..1000 So set to bare minimum value 1.
-    # LGE: set in init.lge.zramswap.sh
-    #echo 1 > /proc/sys/vm/watermark_scale_factor
+    echo 1 > /proc/sys/vm/watermark_scale_factor
 
-    # LGE: disable zram config, use device/lge/common/svelte/svelte.mk
-    #configure_zram_parameters
+    configure_vbswap_parameters
 
     configure_read_ahead_kb_values
 
