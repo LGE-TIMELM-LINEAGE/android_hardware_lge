@@ -249,6 +249,8 @@ on boot
 
     setprop init.svc.console stopped
 
+    start zramswapon
+
 # msm specific files that need to be created on /data
 on post-fs-data
     mkdir /data/vendor/misc 01771 system system
@@ -930,3 +932,22 @@ service vendor.hwcomposer-2-4 /vendor/bin/hw/android.hardware.graphics.composer@
     onrestart restart surfaceflinger
     task_profiles ServiceCapacityLow
     socket pps stream 0660 system system
+
+#
+# initialize and configure zram/swap including some tweaks related.
+#
+service zramswapon /vendor/bin/init.lge.zramswap.sh start
+	user root
+	group system
+	disabled
+	oneshot
+
+#
+# deinit the zram/swap
+#
+service zramswapoff /vendor/bin/init.lge.zramswap.sh stop
+	user root
+	group system
+	disabled
+	oneshot
+
