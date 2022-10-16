@@ -237,7 +237,6 @@
             <Limit name="blocks-per-second" min="24" max="2073600" />
             <Limit name="bitrate" range="1-160000000" />
             <Limit name="frame-rate" range="1-480" />
-            <Limit name="complexity" range="0-100"  default="100" />
             <Limit name="concurrent-instances" max="16" />
             <Limit name="performance-point-4096x2304" value="56" />
             <Limit name="performance-point-4096x2160" value="60" />
@@ -256,7 +255,6 @@
             <Limit name="blocks-per-second" min="24" max="2073600" />
             <Limit name="bitrate" range="1-160000000" />
             <Limit name="frame-rate" range="1-480" />
-            <Limit name="complexity" range="0-100"  default="100" />
             <Limit name="concurrent-instances" max="16" />
             <Limit name="performance-point-4096x2304" value="56" />
             <Limit name="performance-point-4096x2160" value="60" />
@@ -273,7 +271,6 @@
             <Limit name="blocks-per-second" min="24" max="2073600" />
             <Limit name="bitrate" range="1-160000000" />
             <Limit name="frame-rate" range="1-480" />
-            <Limit name="complexity" range="0-100"  default="100" />
             <Limit name="concurrent-instances" max="16" />
             <Limit name="quality" range="0-100" default="80" />
             <Limit name="performance-point-512x512" value="480" />
@@ -284,7 +281,6 @@
             <Limit name="block-count" range="1024-138240" /> <!--max-spatial: 8192x4320 -->
             <Limit name="blocks-per-second" min="24" max="2073600" />
             <Limit name="frame-rate" range="1-480" />
-            <Limit name="complexity" range="0-100"  default="100" />
             <Limit name="concurrent-instances" max="6" />
             <Limit name="quality" range="0-100" default="80" />
             <Limit name="performance-point-8192x4320" value="3" />
@@ -304,7 +300,6 @@
             <Limit name="blocks-per-second" min="24" max="1036800" />
             <Limit name="bitrate" range="1-40000000" />
             <Limit name="frame-rate" range="1-240" />
-            <Limit name="complexity" range="0-100"  default="100" />
             <Limit name="concurrent-instances" max="16" />
             <Limit name="performance-point-4096x2304" value="24" />
             <Limit name="performance-point-4096x2160" value="30" />
