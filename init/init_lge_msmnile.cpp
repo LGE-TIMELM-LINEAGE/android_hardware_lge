@@ -132,4 +132,6 @@ void vendor_load_properties() {
     LOG(INFO) << "Loading vendor specific properties";
     init_target_properties();
     property_override("ro.apex.updatable", "false");
+    property_override("ro.rice.chipset", "Snapdragon 855");
+    property_override("ro.rice.maintainer", "Anh Tran");
 }
