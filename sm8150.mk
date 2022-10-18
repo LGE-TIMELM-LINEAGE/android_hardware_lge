@@ -200,10 +200,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0.vendor
 
-# Gcam
-PRODUCT_PACKAGES += \
-    GCam
-
 # GMS Permissions
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/privapp-permissions-gms.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-gms.xml
