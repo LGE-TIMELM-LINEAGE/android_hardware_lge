@@ -72,7 +72,7 @@ iorapd.readahead.enable=false
 persist.device_config.runtime_native_boot.iorap_readahead_enable=false
 
 # Bluetooth
-persist.vendor.qcom.bluetooth.soc=cherokee
+persist.vendor.qcom.bluetooth.soc=hastings
 
 # Camera
 ro.vendor.lge.dev.fmode=0
