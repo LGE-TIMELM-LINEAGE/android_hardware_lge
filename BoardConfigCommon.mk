@@ -19,6 +19,24 @@ COMMON_PATH := device/lge/sm8250-common
 # inherit from common lge
 -include device/lge/common/BoardConfigCommon.mk
 
+# A/B
+TARGET_IS_VAB := true
+ifeq ($(TARGET_IS_VAB),true)
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
+AB_OTA_UPDATER := true
+
+AB_OTA_PARTITIONS += \
+    boot \
+    dtbo \
+    odm \
+    product \
+    system \
+    vbmeta \
+    vbmeta_system \
+    vendor \
+    vendor_boot
+endif
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-2a-dotprod
@@ -164,10 +182,34 @@ BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_DTBOIMG_PARTITION_SIZE := 25165824
 
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
-TARGET_COPY_OUT_PRODUCT := product
-TARGET_COPY_OUT_VENDOR := vendor
-PRODUCT_VENDOR_MOVE_ENABLED := true
+# Dynamic Partitions -- system only
+SSI_PARTITIONS := product system system_ext
+TREBLE_PARTITIONS := odm vendor
+ALL_PARTITIONS := $(SSI_PARTITIONS) $(TREBLE_PARTITIONS)
+
+$(foreach p, $(call to-upper, $(ALL_PARTITIONS)), \
+    $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := ext4) \
+    $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
+    
+
+# Partitions - reserved size
+ifneq ($(WITH_GMS),true)
+$(foreach p, $(call to-upper, $(SSI_PARTITIONS)), \
+    $(eval BOARD_$(p)IMAGE_EXTFS_INODE_COUNT := -1))
+FRAMEWORK_PARTITIONS_RESERVED_SIZE := 1258291200
+else
+FRAMEWORK_PARTITIONS_RESERVED_SIZE := 30720000
+endif
+$(foreach p, $(call to-upper, $(SSI_PARTITIONS)), \
+    $(eval BOARD_$(p)IMAGE_PARTITION_RESERVED_SIZE := $(FRAMEWORK_PARTITIONS_RESERVED_SIZE)))
+$(foreach p, $(call to-upper, $(TREBLE_PARTITIONS)), \
+    $(eval BOARD_$(p)IMAGE_PARTITION_RESERVED_SIZE := 30720000))
+
+
+BOARD_SUPER_PARTITION_SIZE := 10733223936
+BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
+BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 10733223936
+BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := $(ALL_PARTITIONS)
 
 # Power
 TARGET_RPM_MASTER_STAT := "/sys/power/rpmh_stats/master_stats"
