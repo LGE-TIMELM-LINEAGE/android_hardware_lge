@@ -94,21 +94,16 @@ ro.crypto.volume.filenames_mode=aes-256-cts
 dalvik.vm.dex2oat64.enabled=true
 
 # Display
-ro.surface_flinger.use_color_management=true
-ro.vendor.display.sensortype=2
-vendor.display.comp_mask=0
-vendor.display.dataspace_saturation_matrix=1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0
-vendor.display.disable_decimation=1
+vendor.display.disable_scaler=0
 vendor.display.disable_excl_rect=0
 vendor.display.disable_excl_rect_partial_fb=1
-vendor.display.disable_inline_rotator=1
-vendor.display.disable_scaler=0
-vendor.display.disable_ui_3d_tonemap=1
-vendor.display.enable_force_split=1
-vendor.display.enable_null_display=0
+vendor.display.comp_mask=0
+vendor.display.enable_posted_start_dyn=1
 vendor.display.enable_optimize_refresh=1
-vendor.display.qdcm.disable_factory_mode=1
-vendor.display.qdcm.mode_combine=1
+vendor.display.disable_offline_rotator=1
+vendor.display.disable_hw_recovery_dump=1
+vendor.display.enable_async_powermode=0
+vendor.display.disable_mask_layer_hint=1
 
 # DPM
 persist.vendor.dpm.feature=1
@@ -169,7 +164,7 @@ media.stagefright.thumbnail.prefer_hw_codecs=true
 mm.enable.smoothstreaming=true
 
 # Netflix
-ro.netflix.bsp_rev=Q855-16947-1
+ro.netflix.bsp_rev=Q8250-19134-1
 
 # Netmgr
 persist.vendor.data.iwlan.enable=true
@@ -200,18 +195,21 @@ persist.vendor.radio.no_wait_for_card=1
 persist.vendor.radio.procedure_bytes=SKIP
 persist.vendor.radio.rat_on=combine
 persist.vendor.radio.sib16_support=1
-ro.telephony.default_network=26
+ro.telephony.default_network=10
 ro.telephony.iwlan_operation_mode=AP-assisted
+persist.vendor.radio.no_wait_for_card=1
 
 # Sensors
-persist.vendor.sensors.enable.mag_filter=false
+persist.vendor.sensors.sync_request=true
+persist.vendor.sensors.allow_non_default_discovery=true
+persist.vendor.sensors.debug.hal=d
 
 # System
 persist.sys.binary_xml=false
 
 # SoC
 ro.soc.manufacturer=Qualcomm
-ro.soc.model=sm8250
+ro.soc.model=SM8250
 
 # Voice
 vendor.voice.path.for.pcm.voip=false
