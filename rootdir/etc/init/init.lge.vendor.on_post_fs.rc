@@ -12,6 +12,9 @@ on post-fs
     mkdir /mnt/vendor/persist-lg/data 0700 system system
     restorecon_recursive /mnt/vendor/persist-lg/data
     mkdir /mnt/vendor/persist-lg/property 0771 system radio
+    write /mnt/vendor/persist-lg/cam_torch_brightness 0
+    chown system system /mnt/vendor/persist-lg/cam_torch_brightness
+    chmod 0664 /mnt/vendor/persist-lg/cam_torch_brightness
 
     #USE_SECUREBOOT
     verity_update_state

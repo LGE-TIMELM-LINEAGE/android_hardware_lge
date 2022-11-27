@@ -78,7 +78,7 @@ start() {
       nr_multi_zram=4
     ;;
 
-    "sdm845" | "kona")
+    "sdm845" | "msmnile")
       sz_zram=$(( memtotal_kb / 4 ))
       sz_zram0=$(( memtotal_kb / 4 ))
       compr_zram=lz4
@@ -87,7 +87,7 @@ start() {
       max_write_threads=4
 
       # Must use == expression instead of -eq to compare string
-      if [ "$target" == "kona" ] ; then
+      if [ "$target" == "msmnile" ] ; then
         # increase watermark about 2%
         echo 200 > /proc/sys/vm/watermark_scale_factor
       fi

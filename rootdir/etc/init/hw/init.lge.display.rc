@@ -217,6 +217,12 @@ on boot
 	chmod 664 /sys/class/panel/panel-1/img_tune/mplus_hd
 	chown system system /sys/class/panel/panel-1/img_tune/mplus_max
 	chmod 664 /sys/class/panel/panel-1/img_tune/mplus_max
+	chown system system /sys/class/panel/panel-1/img_tune/ecc_status
+	chmod 664 /sys/class/panel/panel-1/img_tune/ecc_status
+	chown system system /sys/class/panel/panel-1/img_tune/daylight_mode
+	chmod 664 /sys/class/panel/panel-1/img_tune/daylight_mode
+	chown system system /sys/class/panel/panel-1/img_tune/fps_status
+	chmod 444 /sys/class/panel/panel-1/img_tune/fps_status
 
 	chown system system /sys/class/panel/img_tune/comfort_view
 	chmod 664 /sys/class/panel/img_tune/comfort_view
@@ -244,6 +250,8 @@ on boot
 	chmod 664 /sys/class/panel/img_tune/ecc_status
 	chown system system /sys/class/panel/img_tune/daylight_mode
 	chmod 664 /sys/class/panel/img_tune/daylight_mode
+	chown system system /sys/class/panel/img_tune/fps_status
+	chmod 444 /sys/class/panel/img_tune/fps_status
 # End Img Tune Features
 
 # Begin Accessory Features

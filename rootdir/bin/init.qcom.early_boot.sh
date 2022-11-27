@@ -255,6 +255,9 @@ case "$target" in
         # 196610 is decimal for 0x30002 to report version 3.2
         case "$soc_hwid" in
             294|295|296|297|298|313|353|354|363|364)
+                # Disable adsprpcd_sensorspd daemon
+                setprop vendor.fastrpc.disable.adsprpcd_sensorspd.daemon 1
+
                 setprop vendor.opengles.version 196610
                 if [ $soc_hwid = 354 ]
                 then
@@ -300,7 +303,7 @@ case "$target" in
                 ;;
         esac
         ;;
-    "kona")
+    "msmnile")
         case "$soc_hwplatform" in
             *)
                 if [ $fb_width -le 1600 ]; then
@@ -433,7 +436,7 @@ case "$target" in
                  KernelVersionB=${KernelVersionS%.*}
 
                  if [ $KernelVersionA -ge 4 ] && [ $KernelVersionB -ge 14 ]; then
-                     setprop init.qcom.qrtrns.enable 1
+                     setprop init.svc.vendor.qrtrns.enable 1
                  fi
                  ;;
            esac
@@ -460,7 +463,7 @@ set_density_by_fb
 product=`getprop ro.build.product`
 
 case "$product" in
-        "kona_au")
+        "msmnile_au")
          setprop vendor.display.lcd_density 160
          echo 902400000 > /sys/class/devfreq/soc:qcom,cpu0-cpu-l3-lat/min_freq
          echo 1612800000 > /sys/class/devfreq/soc:qcom,cpu0-cpu-l3-lat/max_freq
@@ -486,7 +489,15 @@ case "$product" in
 esac
 
 case "$product" in
-        "kona_gvmq")
+        "msmnile_gvmq")
+         setprop vendor.display.lcd_density 160
+         ;;
+        *)
+        ;;
+esac
+
+case "$product" in
+        "msmnile_gvmgh")
          setprop vendor.display.lcd_density 160
          ;;
         *)

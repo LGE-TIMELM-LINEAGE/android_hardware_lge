@@ -180,10 +180,10 @@ esac
 # apply to use qdss_diag in user mode
 # SM6150(steppe) /SM6250 /SM6350(lagoon)
 # SM7150 /SM7250(lito) /SM7350
-# sm8250(kona) /SM8250(kona) /SM8350(lahaina)
+# SM8150(msmnile) /SM8250(kona) /SM8350(lahaina)
 #
 case "$target" in
-    "lahaina" | "kona" | "kona"  | "lito" | "steppe" | "steppe")
+    "lahaina" | "kona" | "msmnile"  | "lito" | "steppe" | "steppe")
         chown -h root.oem_2902 /sys/devices/platform/soc/6048000.tmc/coresight-tmc-etr/block_size
         chmod 660 /sys/devices/platform/soc/6048000.tmc/coresight-tmc-etr/block_size
     ;;

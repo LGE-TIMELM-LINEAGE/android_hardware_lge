@@ -55,40 +55,6 @@ on chargerlogo
    setprop persist.vendor.ctm.disallowed 1
    chmod 0666 /sys/class/lg_rgb_led/use_patterns/setting
    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 1516800
-   start vendor.hvdcp_opti
-   write /sys/devices/platform/soc/soc:qcom,cpu-llcc-ddr-bw/devfreq/soc:qcom,cpu-llcc-ddr-bw/governor "bw_hwmon"
-   write /sys/devices/platform/soc/soc:qcom,cpu-llcc-ddr-bw/devfreq/soc:qcom,cpu-llcc-ddr-bw/polling_interval 40
-   write /sys/devices/platform/soc/soc:qcom,cpu-llcc-ddr-bw/devfreq/soc:qcom,cpu-llcc-ddr-bw/bw_hwmon/mbps_zones  "1720 2929 3879 5931 6881 7980"
-   write /sys/devices/platform/soc/soc:qcom,cpu-llcc-ddr-bw/devfreq/soc:qcom,cpu-llcc-ddr-bw/bw_hwmon/sample_ms  4
-   write /sys/devices/platform/soc/soc:qcom,cpu-llcc-ddr-bw/devfreq/soc:qcom,cpu-llcc-ddr-bw/bw_hwmon/io_percent  80
-   write /sys/devices/platform/soc/soc:qcom,cpu-llcc-ddr-bw/devfreq/soc:qcom,cpu-llcc-ddr-bw/bw_hwmon/hist_memory  20
-   write /sys/devices/platform/soc/soc:qcom,cpu-llcc-ddr-bw/devfreq/soc:qcom,cpu-llcc-ddr-bw/bw_hwmon/hyst_length  10
-   write /sys/devices/platform/soc/soc:qcom,cpu-llcc-ddr-bw/devfreq/soc:qcom,cpu-llcc-ddr-bw/bw_hwmon/down_thres  30
-   write /sys/devices/platform/soc/soc:qcom,cpu-llcc-ddr-bw/devfreq/soc:qcom,cpu-llcc-ddr-bw/bw_hwmon/guard_band_mbps 0
-   write /sys/devices/platform/soc/soc:qcom,cpu-llcc-ddr-bw/devfreq/soc:qcom,cpu-llcc-ddr-bw/bw_hwmon/up_scale  250
-   write /sys/devices/platform/soc/soc:qcom,cpu-llcc-ddr-bw/devfreq/soc:qcom,cpu-llcc-ddr-bw/bw_hwmon/idle_mbps  1600
-   write /sys/devices/platform/soc/soc:qcom,cpu-llcc-ddr-bw/devfreq/soc:qcom,cpu-llcc-ddr-bw/bw_hwmon/max_freq  6881
-   write /sys/devices/platform/soc/soc:qcom,cpu0-llcc-ddr-lat/devfreq/soc:qcom,cpu0-llcc-ddr-lat/governor "mem_latency"
-   write /sys/devices/platform/soc/soc:qcom,cpu0-llcc-ddr-lat/devfreq/soc:qcom,cpu0-llcc-ddr-lat/polling_interval 10
-   write /sys/devices/platform/soc/soc:qcom,cpu0-llcc-ddr-lat/devfreq/soc:qcom,cpu0-llcc-ddr-lat/mem_latency/ratio_ceil 400
-   write /sys/devices/platform/soc/soc:qcom,cpu4-llcc-ddr-lat/devfreq/soc:qcom,cpu4-llcc-ddr-lat/governor "mem_latency"
-   write /sys/devices/platform/soc/soc:qcom,cpu4-llcc-ddr-lat/devfreq/soc:qcom,cpu4-llcc-ddr-lat/polling_interval 10
-   write /sys/devices/platform/soc/soc:qcom,cpu4-llcc-ddr-lat/devfreq/soc:qcom,cpu4-llcc-ddr-lat/mem_latency/ratio_ceil 400
-   write /sys/devices/platform/soc/soc:qcom,cpu4-cpu-ddr-latfloor/devfreq/soc:qcom,cpu4-cpu-ddr-latfloor/governor "compute"
-   write /sys/devices/platform/soc/soc:qcom,cpu4-cpu-ddr-latfloor/devfreq/soc:qcom,cpu4-cpu-ddr-latfloor/polling_interval 10
-   write /sys/devices/virtual/npu/msm_npu/pwr 1
-   write /sys/class/devfreq/soc:qcom,npu-npu-ddr-bw/governor "bw_hwmon"
-   write /sys/class/devfreq/soc:qcom,npu-npu-ddr-bw/polling_interval 40
-   write /sys/class/devfreq/soc:qcom,npu-npu-ddr-bw/bw_hwmon/mbps_zones "1720 2929 3879 5931 6881 7980"
-   write /sys/class/devfreq/soc:qcom,npu-npu-ddr-bw/bw_hwmon/sample_ms 4
-   write /sys/class/devfreq/soc:qcom,npu-npu-ddr-bw/bw_hwmon/io_percent 80
-   write /sys/class/devfreq/soc:qcom,npu-npu-ddr-bw/bw_hwmon/hist_memory 20
-   write /sys/class/devfreq/soc:qcom,npu-npu-ddr-bw/bw_hwmon/hyst_length 10
-   write /sys/class/devfreq/soc:qcom,npu-npu-ddr-bw/bw_hwmon/down_thres 30
-   write /sys/class/devfreq/soc:qcom,npu-npu-ddr-bw/bw_hwmon/guard_band_mbps 0
-   write /sys/class/devfreq/soc:qcom,npu-npu-ddr-bw/bw_hwmon/up_scale 250
-   write /sys/class/devfreq/soc:qcom,npu-npu-ddr-bw/bw_hwmon/idle_mbps 1600
-   write /sys/devices/virtual/npu/msm_npu/pwr 0
    mount configfs none /config
    mkdir /config/usb_gadget/g1 0770 shell shell
    mkdir /config/usb_gadget/g1/strings/0x409 0770 shell shell
@@ -125,9 +91,7 @@ on chargerlogo
    symlink /config/usb_gadget/g1/functions/hid.charge /config/usb_gadget/g1/configs/b.1/f1
    write /config/usb_gadget/g1/UDC "a600000.dwc3"
    write /sys/devices/platform/lge-unified-nodes/status_boot 1
-
-on late-fs && property:ro.bootmode=chargerlogo
-   write /dev/ipa 1
+   write /sys/devices/platform/lge-unified-nodes/actm_mode 22
 
 # Qnovo soluion
 on post-fs-data
@@ -139,87 +103,63 @@ on post-fs-data
    chmod 0644 /mnt/vendor/power/qni_a_data
    chmod 0644 /mnt/vendor/power/qni_b_data
    chmod 0644 /data/vendor/power/qni_log
+   chmod 0644 /mnt/vendor/power/qns_a_data
+   chmod 0644 /mnt/vendor/power/qns_b_data
+   chmod 0644 /data/vendor/power/qns_log
    chown root system /mnt/vendor/power/qna_log
    chown root system /mnt/vendor/power/qni_a_data
    chown root system /mnt/vendor/power/qni_b_data
    chown root system /data/vendor/power/qni_log
-
+   chown root system /mnt/vendor/power/qns_a_data
+   chown root system /mnt/vendor/power/qns_b_data
+   chown root system /data/vendor/power/qns_log
    start vendor.qni
 
-on property:vendor.lge.qnovo.qni.health=*
-   write /sys/class/qnovo/QNA_METER ${vendor.lge.qnovo.qni.health}
-
-on property:vendor.lge.qnovo.qni.safety=*
-   write /sys/class/qnovo/QNA_SAFETY ${vendor.lge.qnovo.qni.safety}
-
-#on property:vendor.lge.qnovo.qni.v-t_warning=*
-#   write /sys/class/qnovo/QNA_VTWARN ${vendor.lge.qnovo.qni.v-t_warning}
-
-#on property:vendor.lge.qnovo.qni.cap_proj=*
-#   write /sys/class/qnovo/QNA_PCAP ${vendor.lge.qnovo.qni.cap_proj}
+on post-fs-data && property:ro.bootmode=chargerlogo
+   enable vendor.qti-chg-policy-sh
+   start vendor.qti-chg-policy-sh
 
 on property:sys.shutdown.requested=*
    stop vendor.qni
-   stop vendor.qni_log
+   stop vendor.qns
    write /sys/class/qnovo/qnovo_enable 0
 
-on property:persist.vendor.lge.service.chg_mode=LGE
+on property:persist.vendor.lge.service.qnovo_mode=QNOVO_DISABLE
    stop vendor.qni
-   stop vendor.qni_log
+   stop vendor.qns
    write /sys/class/qnovo/qnovo_enable 0
 
-on property:persist.vendor.lge.service.chg_mode=LGE,QNOVO && property:persist.vendor.lge.service.kernel.enable=0
-   stop vendor.qni_log
+on property:persist.vendor.lge.service.qnovo_mode=QNOVO_QNI
+   stop vendor.qns
    start vendor.qni
+   write /sys/class/qnovo/qnovo_enable 0
 
-on property:persist.vendor.lge.service.chg_mode=QNOVO && property:persist.vendor.lge.service.kernel.enable=0
-   stop vendor.qni_log
+on property:persist.vendor.lge.service.qnovo_mode=QNOVO_QNS
+   stop vendor.qni
+   start vendor.qns
+   write /sys/class/qnovo/qnovo_enable 0
+
+on property:persist.vendor.lge.service.chg_mode=QNOVO_DISABLE
+   stop vendor.qni
+   stop vendor.qns
+   write /sys/class/qnovo/qnovo_enable 0
+
+on property:persist.vendor.lge.service.chg_mode=QNOVO_QNI
+   stop vendor.qns
    start vendor.qni
+   write /sys/class/qnovo/qnovo_enable 0
 
-on property:persist.vendor.lge.service.chg_mode=LGE,QNOVO && property:persist.vendor.lge.service.kernel.enable=1
+on property:persist.vendor.lge.service.chg_mode=QNOVO_QNS
    stop vendor.qni
-   start vendor.qni_log
-on property:persist.vendor.lge.service.chg_mode=LGE,QNOVO && property:persist.vendor.lge.service.kernel.enable=2
-   stop vendor.qni
-   start vendor.qni_log
-on property:persist.vendor.lge.service.chg_mode=LGE,QNOVO && property:persist.vendor.lge.service.kernel.enable=3
-   stop vendor.qni
-   start vendor.qni_log
-on property:persist.vendor.lge.service.chg_mode=LGE,QNOVO && property:persist.vendor.lge.service.kernel.enable=4
-   stop vendor.qni
-   start vendor.qni_log
-on property:persist.vendor.lge.service.chg_mode=LGE,QNOVO && property:persist.vendor.lge.service.kernel.enable=5
-   stop vendor.qni
-   start vendor.qni_log
-on property:persist.vendor.lge.service.chg_mode=LGE,QNOVO && property:persist.vendor.lge.service.kernel.enable=6
-   stop vendor.qni
-   start vendor.qni_log
+   start vendor.qns
+   write /sys/class/qnovo/qnovo_enable 0
 
-on property:persist.vendor.lge.service.chg_mode=QNOVO && property:persist.vendor.lge.service.kernel.enable=1
-   stop vendor.qni
-   start vendor.qni_log
-on property:persist.vendor.lge.service.chg_mode=QNOVO && property:persist.vendor.lge.service.kernel.enable=2
-   stop vendor.qni
-   start vendor.qni_log
-on property:persist.vendor.lge.service.chg_mode=QNOVO && property:persist.vendor.lge.service.kernel.enable=3
-   stop vendor.qni
-   start vendor.qni_log
-on property:persist.vendor.lge.service.chg_mode=QNOVO && property:persist.vendor.lge.service.kernel.enable=4
-   stop vendor.qni
-   start vendor.qni_log
-on property:persist.vendor.lge.service.chg_mode=QNOVO && property:persist.vendor.lge.service.kernel.enable=5
-   stop vendor.qni
-   start vendor.qni_log
-on property:persist.vendor.lge.service.chg_mode=QNOVO && property:persist.vendor.lge.service.kernel.enable=6
-   stop vendor.qni
-   start vendor.qni_log
-
-service vendor.qni /system/vendor/bin/qni -d /mnt/vendor/power -l /data/vendor/power -o 2
-   socket qnibsd stream 660 qni system
+service vendor.qns /system/vendor/bin/qns -d /mnt/vendor/power -l /data/vendor/power -o 2
+   socket qnsbsd stream 660 system system
    disabled
 
-service vendor.qni_log /system/vendor/bin/qni -d /mnt/vendor/power -l /data/vendor/power -o 6
-   socket qnibsd stream 660 qni system
+service vendor.qni /system/vendor/bin/qni -d /mnt/vendor/power -l /data/vendor/power -o 2
+   socket qnibsd stream 660 system system
    disabled
 
 # Hard Reset Type: 8-DVDD_HARD_RESET, 9-XVDD_HARD_RESET
@@ -230,6 +170,73 @@ on property:persist.vendor.lge.hardreset=1
 
 on property:sys.boot_completed=1
    write /sys/devices/platform/lge-unified-nodes/status_boot 1
+
+# ACTM: adaptive charging thermal mitigation
+on property:persist.vendor.lge.actm.mode=*
+   write /sys/devices/platform/lge-unified-nodes/actm_mode ${persist.vendor.lge.actm.mode}
+on property:persist.vendor.lge.actm.lcdon_offs=*
+   write /sys/devices/platform/lge-unified-nodes/actm_lcdon_offset ${persist.vendor.lge.actm.lcdon_offs}
+on property:persist.vendor.lge.actm.sensor_wired=*
+   write /sys/devices/platform/lge-unified-nodes/actm_sensor_wired ${persist.vendor.lge.actm.sensor_wired}
+on property:persist.vendor.lge.actm.sensor_wireless=*
+   write /sys/devices/platform/lge-unified-nodes/actm_sensor_wireless ${persist.vendor.lge.actm.sensor_wireless}
+on property:persist.vendor.lge.actm.holddeg_wired0=*
+   write /sys/devices/platform/lge-unified-nodes/actm_holddeg_wired_0 ${persist.vendor.lge.actm.holddeg_wired0}
+on property:persist.vendor.lge.actm.holddeg_wired1=*
+   write /sys/devices/platform/lge-unified-nodes/actm_holddeg_wired_1 ${persist.vendor.lge.actm.holddeg_wired1}
+on property:persist.vendor.lge.actm.holddeg_wired2=*
+   write /sys/devices/platform/lge-unified-nodes/actm_holddeg_wired_2 ${persist.vendor.lge.actm.holddeg_wired2}
+on property:persist.vendor.lge.actm.holddeg_wireless0=*
+   write /sys/devices/platform/lge-unified-nodes/actm_holddeg_wireless_0 ${persist.vendor.lge.actm.holddeg_wireless0}
+on property:persist.vendor.lge.actm.holddeg_wireless1=*
+   write /sys/devices/platform/lge-unified-nodes/actm_holddeg_wireless_1 ${persist.vendor.lge.actm.holddeg_wireless1}
+on property:persist.vendor.lge.actm.holddeg_wireless2=*
+   write /sys/devices/platform/lge-unified-nodes/actm_holddeg_wireless_2 ${persist.vendor.lge.actm.holddeg_wireless2}
+on property:persist.vendor.lge.actm.tempoffs_wired0=*
+   write /sys/devices/platform/lge-unified-nodes/actm_tempoffs_wired_0 ${persist.vendor.lge.actm.tempoffs_wired0}
+on property:persist.vendor.lge.actm.tempoffs_wired1=*
+   write /sys/devices/platform/lge-unified-nodes/actm_tempoffs_wired_1 ${persist.vendor.lge.actm.tempoffs_wired1}
+on property:persist.vendor.lge.actm.tempoffs_wired2=*
+   write /sys/devices/platform/lge-unified-nodes/actm_tempoffs_wired_2 ${persist.vendor.lge.actm.tempoffs_wired2}
+on property:persist.vendor.lge.actm.tempoffs_wireless0=*
+   write /sys/devices/platform/lge-unified-nodes/actm_tempoffs_wireless_0 ${persist.vendor.lge.actm.tempoffs_wireless0}
+on property:persist.vendor.lge.actm.tempoffs_wireless1=*
+   write /sys/devices/platform/lge-unified-nodes/actm_tempoffs_wireless_1 ${persist.vendor.lge.actm.tempoffs_wireless1}
+on property:persist.vendor.lge.actm.tempoffs_wireless2=*
+   write /sys/devices/platform/lge-unified-nodes/actm_tempoffs_wireless_2 ${persist.vendor.lge.actm.tempoffs_wireless2}
+on property:persist.vendor.lge.actm.max_fcc_pps=*
+   write /sys/devices/platform/lge-unified-nodes/actm_max_fcc_pps ${persist.vendor.lge.actm.max_fcc_pps}
+on property:persist.vendor.lge.actm.max_fcc_qc3=*
+   write /sys/devices/platform/lge-unified-nodes/actm_max_fcc_qc3 ${persist.vendor.lge.actm.max_fcc_qc3}
+on property:persist.vendor.lge.actm.max_fcc_qc2=*
+   write /sys/devices/platform/lge-unified-nodes/actm_max_fcc_qc2 ${persist.vendor.lge.actm.max_fcc_qc2}
+on property:persist.vendor.lge.actm.current_cp_pps=*
+   write /sys/devices/platform/lge-unified-nodes/actm_curr_cp_pps ${persist.vendor.lge.actm.current_cp_pps}
+on property:persist.vendor.lge.actm.current_cp_qc30=*
+   write /sys/devices/platform/lge-unified-nodes/actm_curr_cp_qc30 ${persist.vendor.lge.actm.current_cp_qc30}
+on property:persist.vendor.lge.actm.current_wired0=*
+   write /sys/devices/platform/lge-unified-nodes/actm_current_wired_0 ${persist.vendor.lge.actm.current_wired0}
+on property:persist.vendor.lge.actm.current_wired1=*
+   write /sys/devices/platform/lge-unified-nodes/actm_current_wired_1 ${persist.vendor.lge.actm.current_wired1}
+on property:persist.vendor.lge.actm.current_wired2=*
+   write /sys/devices/platform/lge-unified-nodes/actm_current_wired_2 ${persist.vendor.lge.actm.current_wired2}
+on property:persist.vendor.lge.actm.power_epp0=*
+   write /sys/devices/platform/lge-unified-nodes/actm_power_epp_0 ${persist.vendor.lge.actm.power_epp0}
+on property:persist.vendor.lge.actm.power_epp1=*
+   write /sys/devices/platform/lge-unified-nodes/actm_power_epp_1 ${persist.vendor.lge.actm.power_epp1}
+on property:persist.vendor.lge.actm.power_epp2=*
+   write /sys/devices/platform/lge-unified-nodes/actm_power_epp_2 ${persist.vendor.lge.actm.power_epp2}
+on property:persist.vendor.lge.actm.power_bpp0=*
+   write /sys/devices/platform/lge-unified-nodes/actm_power_bpp_0 ${persist.vendor.lge.actm.power_bpp0}
+on property:persist.vendor.lge.actm.power_bpp1=*
+   write /sys/devices/platform/lge-unified-nodes/actm_power_bpp_1 ${persist.vendor.lge.actm.power_bpp1}
+on property:persist.vendor.lge.actm.power_bpp2=*
+   write /sys/devices/platform/lge-unified-nodes/actm_power_bpp_2 ${persist.vendor.lge.actm.power_bpp2}
+# IRC: IR Compensation
+on property:persist.vendor.lge.chg.irc_enabled=*
+   write /sys/devices/platform/lge-unified-nodes/irc_enabled ${persist.vendor.lge.chg.irc_enabled}
+   on property:persist.vendor.lge.chg.irc_resistance=*
+   write /sys/devices/platform/lge-unified-nodes/irc_resistance ${persist.vendor.lge.chg.irc_resistance}
 
 on boot
 #   chown system system /proc/lge_power/psfeature/vfps
@@ -267,3 +274,13 @@ on boot
    chown system system /sys/devices/virtual/lg_rgb_led/use_patterns/setting
    chmod 0644 /sys/devices/virtual/lg_rgb_led/use_patterns/setting
    write /sys/devices/virtual/lg_rgb_led/use_patterns/setting 1
+   chown system system /sys/devices/platform/soc/soc:lrmc/bob_mode
+   chmod 664 /sys/devices/platform/soc/soc:lrmc/bob_mode
+   chown system system /sys/devices/platform/lge-unified-nodes/bsm_timetofull
+
+#bsm service
+on property:persist.vendor.lge.service.bsm.bsm_ttf=*
+   write /sys/devices/platform/lge-unified-nodes/bsm_timetofull ${persist.vendor.lge.service.bsm.bsm_ttf}
+on property:persist.vendor.lge.service.bsm.bsm_ttf=0
+   write /sys/devices/platform/lge-unified-nodes/bsm_timetofull 0
+

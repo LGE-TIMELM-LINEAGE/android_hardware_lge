@@ -8,7 +8,8 @@ on chargerlogo
     trigger load_persist_props_action
     trigger lapex-mount
     trigger firmware_mounts_complete
-    trigger chargerlogo_exec
+    trigger early-boot
+    trigger boot
 
 on chargerlogo_exec
     start system_suspend
@@ -29,11 +30,24 @@ on chargerlogo_exec
     chmod 0666 /sys/power/state
     chown system system /sys/power/wakeup_count
     chmod 0666 /sys/power/wakeup_count
+    chown system system /sys/class/backlight/panel0-backlight/brightness
+    chmod 0666 /sys/class/backlight/panel0-backlight/brightness
     exec u:r:chargerlogo:s0 -- /vendor/bin/chargerlogo
     trigger chargerlogo_after
+
+on property:init.svc.bootanim=running && property:ro.bootmode=chargerlogo
+    stop vendor.qti.hardware.display.allocator
+    stop vendor.qti.hardware.display.composer
+    start qcom-post-boot
+    trigger chargerlogo_exec
 
 # WA chargerlogo kill
 on chargerlogo_after
     exec u:r:chargerlogo:s0 -- /vendor/bin/chargerlogo
     trigger chargerlogo_after
 
+service vendor.lge-chargerlogo-sh /vendor/bin/vendor.lge.power.chglogo.sh
+    class core
+    user root
+    oneshot
+    disabled
