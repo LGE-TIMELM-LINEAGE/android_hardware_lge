@@ -1,5 +1,5 @@
 #
-# vendor props for lge sm8150-common
+# vendor props for lge sm8250-common
 #
 
 # Audio
@@ -211,7 +211,7 @@ persist.sys.binary_xml=false
 
 # SoC
 ro.soc.manufacturer=Qualcomm
-ro.soc.model=SM8150
+ro.soc.model=sm8250
 
 # Voice
 vendor.voice.path.for.pcm.voip=false

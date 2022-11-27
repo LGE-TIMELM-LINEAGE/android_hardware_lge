@@ -1,2 +1,0 @@
-allow bootanim system_data_file:dir read;
-allow bootanim audio_service:service_manager find;

@@ -15,7 +15,7 @@
 //
 
 runtime_resource_overlay {
-    name: "TetheringConfigOverlay.lge_sm8150",
+    name: "TetheringConfigOverlay.lge_sm8250",
     resource_dirs: ["res"],
     sdk_version: "current",
     proprietary: true

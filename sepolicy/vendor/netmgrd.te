@@ -1,2 +1,0 @@
-get_prop(vendor_netmgrd, vendor_lge_misc_prop)
-set_prop(vendor_netmgrd, vendor_radio_prop)

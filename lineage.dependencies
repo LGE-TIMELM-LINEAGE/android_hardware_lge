@@ -1,7 +1,7 @@
 [
   {
-    "repository": "LineageOS/kernel_lge_sm8150",
-    "target_path": "kernel/lge/sm8150",
+    "repository": "LineageOS/kernel_lge_sm8250",
+    "target_path": "kernel/lge/sm8250",
     "branch": "lineage-17.1"
   },
   {

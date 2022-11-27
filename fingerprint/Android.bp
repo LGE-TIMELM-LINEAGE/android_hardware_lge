@@ -13,9 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 cc_binary {
-    name: "android.hardware.biometrics.fingerprint@2.1-service.lge_msmnile",
-    vintf_fragments: ["android.hardware.biometrics.fingerprint@2.1-service.lge_msmnile.xml"],
-    init_rc: ["android.hardware.biometrics.fingerprint@2.1-service.lge_msmnile.rc"],
+    name: "android.hardware.biometrics.fingerprint@2.1-service.lge_kona",
+    vintf_fragments: ["android.hardware.biometrics.fingerprint@2.1-service.lge_kona.xml"],
+    init_rc: ["android.hardware.biometrics.fingerprint@2.1-service.lge_kona.rc"],
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
     srcs: ["service.cpp", "BiometricsFingerprint.cpp"],

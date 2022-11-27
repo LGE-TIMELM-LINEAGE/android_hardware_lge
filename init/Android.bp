@@ -15,9 +15,9 @@
 //
 
 cc_library_static {
-    name: "libinit_lge_msmnile",
+    name: "libinit_lge_kona",
     recovery_available: true,
-    srcs: ["init_lge_msmnile.cpp"],
+    srcs: ["init_lge_kona.cpp"],
     include_dirs: [
         "system/libbase/include",
         "system/core/init"

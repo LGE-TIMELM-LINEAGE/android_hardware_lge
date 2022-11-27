@@ -14,9 +14,9 @@
 // limitations under the License.
 
 cc_binary {
-    name: "android.hardware.light@2.0-service.lge_msmnile",
-    vintf_fragments: ["android.hardware.light@2.0-service.lge_msmnile.xml"],
-    init_rc: ["android.hardware.light@2.0-service.lge_msmnile.rc"],
+    name: "android.hardware.light@2.0-service.lge_kona",
+    vintf_fragments: ["android.hardware.light@2.0-service.lge_kona.xml"],
+    init_rc: ["android.hardware.light@2.0-service.lge_kona.rc"],
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
     proprietary: true,

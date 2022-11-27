@@ -18,7 +18,7 @@
 
 set -e
 
-DEVICE=sm8150-common
+DEVICE=sm8250-common
 VENDOR=lge
 
 # Load extract_utils and do some sanity checks
@@ -68,7 +68,7 @@ while [ "${#}" -gt 0 ]; do
 done
 
 if [ -z "$SRC" ]; then
-    SRC=adb
+    SRC=/home/j0sh1x/extract/mount
 fi
 
 # Initialize the helper

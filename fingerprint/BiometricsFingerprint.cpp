@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.lge_sm8150"
+#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.lge_sm8250"
 
 #include "BiometricsFingerprint.h"
 

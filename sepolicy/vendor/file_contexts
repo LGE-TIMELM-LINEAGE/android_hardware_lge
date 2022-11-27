@@ -8,37 +8,9 @@
 /dev/block/platform/soc/1d84000\.ufshc/by-name/secdata                   u:object_r:sec_block_device:s0
 /dev/block/platform/soc/1d84000\.ufshc/by-name/sns                       u:object_r:sns_block_device:s0
 
-# Devices
-/dev/goodix_fp            u:object_r:fingerprintd_device:s0
-/dev/pn547                u:object_r:nfc_device:s0
 
 # FPS Info
 /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/sde-crtc-0/measured_fps                       u:object_r:sysfs_fps:s0
-
-# Init
-/(vendor|system/vendor)/bin/init\.lge\.usb\.default\.sh                                                 u:object_r:vendor_qti_init_shell_exec:s0
-/(vendor|system/vendor)/bin/init\.lge\.usb\.lao\.sh                                                     u:object_r:vendor_qti_init_shell_exec:s0
-/(vendor|system/vendor)/bin/init\.lge\.usb\.sh                                                          u:object_r:vendor_qti_init_shell_exec:s0
-/(vendor|system/vendor)/bin/init\.lge\.zramswap\.sh                                                     u:object_r:vendor_qti_init_shell_exec:s0
-/(vendor|system/vendor)/bin/init\.qcom\.devstart\.sh                                                    u:object_r:vendor_qti_init_shell_exec:s0
-/(vendor|system/vendor)/bin/init\.qti\.chg_policy\.sh                                                   u:object_r:vendor_qti_init_shell_exec:s0
-
-# HALs
-/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.lge_msmnile                       u:object_r:hal_light_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.neuralnetworks@1\.2-service-qti                       u:object_r:vendor_hal_neuralnetworks_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.nfc@1\.2-service-pn55x                                u:object_r:hal_nfc_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service\.lge_msmnile     u:object_r:hal_fingerprint_default_exec:s0
-/(vendor|system/vendor)/bin/hw/vendor\.lge\.hardware\.vss_ims@1\.0-service                              u:object_r:hal_vss_ims_default_exec:s0
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.1-service\.lge_msmnile                   u:object_r:hal_lineage_livedisplay_qti_exec:s0
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.lge_msmnile                         u:object_r:hal_lineage_touch_default_exec:s0
-/(vendor|system/vendor)/bin/hw/vendor\.lge\.hardware\.lgdata@1\.1-service                               u:object_r:hal_lgdata_default_exec:s0
-/(vendor|system/vendor)/bin/hw/vendor\.lge\.hardware\.powerhint\.rescontrol@2\.0-service                u:object_r:hal_powerhint_default_exec:s0
-/(vendor|system/vendor)/bin/cpfirmware                                                                  u:object_r:vendor_hal_drm_widevine_exec:s0
-/(vendor|system/vendor)/bin/ppd                                                                         u:object_r:vendor_hal_display_color_default_exec:s0
-/(vendor|system/vendor)/bin/qni                                                                         u:object_r:qni_exec:s0
-/(vendor|system/vendor)/bin/qrtr-lookup                                                                 u:object_r:vendor_qrtr_exec:s0
-/(vendor|system/vendor)/bin/wigig_wiburn                                                                u:object_r:wigig_wiburn_exec:s0
-/(vendor|system/vendor)/bin/poweropt-service								u:object_r:vendor_poweroptservice_exec:s0										
 
 # Label
 /bt_firmware(/.*)?					u:object_r:bt_firmware_file:s0
@@ -68,56 +40,3 @@
 
 # SNS
 /mnt/vendor/sns(/.*)?                                   u:object_r:sns_file:s0
-
-# Swap
-/dev/block/zram1                                        u:object_r:swap_block_device:s0
-
-# Sys files
-/sys/class/qnovo(/.*)?                                  u:object_r:sysfs_qnovo:s0
-/sys/kernel/boot_cdsp/boot                              u:object_r:sysfs_boot_cdsp:s0
-/sys/devices/0305_01\.01\.00/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/vendor/vendor:lge-veneer-psy/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/vendor/vendor:lge-veneer-psy/power_supply/veneer/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/171c0000\.slim/tavil-slim-pgd/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/soc:fingerprint@0/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/890000\.i2c/i2c-0/0-000c/890000\.i2c:qcom,smb1355@c:qcom,smb1355-charger@1000/power_supply/parallel/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/88e0000\.qcom,msm-eud/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/a600000\.ssusb/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/ae90000\.qcom,dp_display/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/soc:gpio_keys/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/880000\.i2c/i2c-1/1-0061/power_supply/wireless/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c80000\.i2c/i2c-4/4-0020/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/18800000\.qcom,icnss/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-00/c440000\.qcom,spmi:qcom,pm8150@0:qcom,pm8150_rtc/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-00/c440000\.qcom,spmi:qcom,pm8150@0:qcom,pm8150_rtc/rtc/rtc0/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-00/c440000\.qcom,spmi:qcom,pm8150@0:qcom,power-on@800/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-04/c440000\.qcom,spmi:qcom,pm8150l@4:qcom,power-on@800/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-02/c440000\.qcom,spmi:qcom,pm8150b@2:qcom,sdam-qnovo@b000/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-02/c440000\.qcom,spmi:qcom,pm8150b@2:qpnp,fg/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-02/c440000\.qcom,spmi:qcom,pm8150b@2:qpnp,fg/power_supply/bms/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-02/c440000\.qcom,spmi:qcom,pm8150b@2:qcom,qpnp-smb5/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-02/c440000\.qcom,spmi:qcom,pm8150b@2:qcom,qpnp-smb5/power_supply/dc/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-02/c440000\.qcom,spmi:qcom,pm8150b@2:qcom,qpnp-smb5/power_supply/battery/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-02/c440000\.qcom,spmi:qcom,pm8150b@2:qcom,qpnp-smb5/power_supply/pc_port/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-02/c440000\.qcom,spmi:qcom,pm8150b@2:qcom,qpnp-smb5/power_supply/main/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-02/c440000\.qcom,spmi:qcom,pm8150b@2:qcom,qpnp-smb5/power_supply/usb/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-02/c440000\.qcom,spmi:qcom,pm8150b@2:qcom,usb-pdphy@1700/usbpd/usbpd0/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/platform/soc/c440000\.qcom,spmi/spmi-0/spmi0-02/c440000\.qcom,spmi:qcom,pm8150b@2:qcom,usb-pdphy@1700/usbpd/usbpd0/otg_default/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/wakeup/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/diag/diag/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_wma/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_amrwb/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_ape/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_aac/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_alac/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_g711mlaw/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_qcelp/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_multi_aac/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_g711alaw/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_evrc/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_mp3/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_wmapro/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_amrnb/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/misc/msm_amrwbplus/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/fastrpc/adsprpc-smd/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0
-/sys/devices/virtual/fastrpc/adsprpc-smd-secure/wakeup[0-9]+(/.*)? u:object_r:sysfs_wakeup:s0

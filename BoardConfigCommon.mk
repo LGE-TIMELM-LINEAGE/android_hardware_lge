@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-COMMON_PATH := device/lge/sm8150-common
+COMMON_PATH := device/lge/sm8250-common
 
 # inherit from common lge
 -include device/lge/common/BoardConfigCommon.mk
@@ -41,12 +41,12 @@ ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := msmnile
+TARGET_BOOTLOADER_BOARD_NAME := kona
 TARGET_NO_BOOTLOADER := true
 
 # Platform
 BOARD_USES_QCOM_HARDWARE := true
-TARGET_BOARD_PLATFORM := msmnile
+TARGET_BOARD_PLATFORM := kona
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
@@ -118,8 +118,8 @@ DEVICE_MANIFEST_FILE := $(COMMON_PATH)/manifest.xml
 ODM_MANIFEST_FILES := $(COMMON_PATH)/manifest-qva.xml
 
 # Init
-TARGET_INIT_VENDOR_LIB := libinit_lge_msmnile
-TARGET_RECOVERY_DEVICE_MODULES := libinit_lge_msmnile
+TARGET_INIT_VENDOR_LIB := libinit_lge_kona
+TARGET_RECOVERY_DEVICE_MODULES := libinit_lge_kona
 
 # Keystore
 TARGET_PROVIDES_KEYMASTER := true
@@ -133,7 +133,7 @@ TARGET_USES_ION := true
 BOARD_USES_METADATA_PARTITION := true
 
 # Kernel
-BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1
+BOARD_KERNEL_CMDLINE += androidboot.memcg=1 lpm_levels.sleep_disabled=1
 BOARD_KERNEL_CMDLINE += video=vfb:640x400,bpp=32,memsize=3072000
 BOARD_KERNEL_CMDLINE += msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048
 BOARD_KERNEL_CMDLINE += firmware_class.path=/vendor/firmware_mnt/image
@@ -148,7 +148,7 @@ BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_BOOT_HEADER_VERSION := 2
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_RAMDISK_USE_LZ4 := true
-TARGET_KERNEL_SOURCE := kernel/lge/sm8150
+TARGET_KERNEL_SOURCE := kernel/lge/sm8250
 TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_CLANG_VERSION := 15
 TARGET_CLANG_PREBUILTS_VERSION := 15
@@ -219,4 +219,4 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 QC_WIFI_HIDL_FEATURE_DUAL_AP := true
 
 # Inherit from the proprietary version
--include vendor/lge/sm8150-common/BoardConfigVendor.mk
+-include vendor/lge/sm8250-common/BoardConfigVendor.mk

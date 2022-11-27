@@ -1,3 +1,0 @@
-allow kernel block_device:blk_file rw_file_perms;
-allow kernel block_device:dir search;
-allow kernel self:qipcrtr_socket create;

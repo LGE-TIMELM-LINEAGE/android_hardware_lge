@@ -1,5 +1,0 @@
-allow fsck persdata_block_device:blk_file { ioctl open read write };
-allow fsck persistlg_file:dir getattr;
-allow fsck power_block_device:blk_file { ioctl open read write };
-allow fsck sns_block_device:blk_file { ioctl open read write };
-

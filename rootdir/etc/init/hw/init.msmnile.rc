@@ -8,7 +8,7 @@ import /init.lge.svelte.rc
 
 on init
 
-# LG override start -device/qcom/msmnile/init.target.rc
+# LG override start -device/qcom/kona/init.target.rc
 on fs
     start hwservicemanager
 
@@ -100,7 +100,7 @@ on property:vold.decrypt=trigger_load_persist_props && property:ro.boot.vendor.l
 on property:persist.vendor.lge.service.crash.enable=*
     restart service-crash
 
-service service-crash /vendor/bin/init.sm8150.crash.sh
+service service-crash /vendor/bin/init.sm8250.crash.sh
     disabled
     oneshot
 

@@ -1,5 +1,5 @@
 #
-# system props for lge sm8150-common
+# system props for lge sm8250-common
 #
 
 # Audio
@@ -67,7 +67,7 @@ ro.nfc.port=I2C
 ro.vendor.qti.sys.fw.bg_apps_limit=64
 
 # Processor Model
-ro.processor.model=SM8150
+ro.processor.model=sm8250
 
 # QC framework value-adds
 ro.vendor.qti.va_aosp.support=1

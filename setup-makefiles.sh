@@ -18,7 +18,7 @@
 
 set -e
 
-DEVICE=sm8150-common
+DEVICE=sm8250-common
 VENDOR=lge
 
 # Load extract_utils and do some sanity checks

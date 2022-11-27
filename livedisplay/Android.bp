@@ -13,7 +13,7 @@
 // limitations under the License.
 
 cc_defaults {
-    name: "livedisplay_lge_msmnile_defaults",
+    name: "livedisplay_lge_kona_defaults",
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
     srcs: [
@@ -39,9 +39,9 @@ cc_defaults {
 }
 
 cc_binary {
-    name: "vendor.lineage.livedisplay@2.1-service.lge_msmnile",
-    vintf_fragments: ["vendor.lineage.livedisplay@2.1-service.lge_msmnile.xml"],
-    init_rc: ["vendor.lineage.livedisplay@2.1-service.lge_msmnile.rc"],
-    defaults: ["livedisplay_lge_msmnile_defaults"],
+    name: "vendor.lineage.livedisplay@2.1-service.lge_kona",
+    vintf_fragments: ["vendor.lineage.livedisplay@2.1-service.lge_kona.xml"],
+    init_rc: ["vendor.lineage.livedisplay@2.1-service.lge_kona.rc"],
+    defaults: ["livedisplay_lge_kona_defaults"],
     vendor: true,
 }

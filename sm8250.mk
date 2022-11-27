@@ -15,12 +15,12 @@
 #
 
 # Inherit proprietary blobs
-$(call inherit-product-if-exists, vendor/lge/sm8150-common/sm8150-common-vendor.mk)
+$(call inherit-product-if-exists, vendor/lge/sm8250-common/sm8250-common-vendor.mk)
 
-COMMON_PATH := device/lge/sm8150-common
+COMMON_PATH := device/lge/sm8250-common
 
 # define hardware platform
-PRODUCT_BOARD_PLATFORM := msmnile
+PRODUCT_BOARD_PLATFORM := kona
 PRODUCT_USES_QCOM_HARDWARE := true
 
 # Soong
@@ -88,7 +88,7 @@ PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.1-impl \
     audio.bluetooth.default \
     audio.primary.default \
-    audio.primary.msmnile \
+    audio.primary.kona \
     audio.r_submix.default \
     audio.usb.default \
     audio.usbv2.default \
@@ -126,8 +126,8 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.1-impl-qti:64 \
     android.hardware.boot@1.1-service \
     android.hardware.boot@1.1-impl-qti.recovery \
-    bootctrl.msmnile \
-    bootctrl.msmnile.recovery
+    bootctrl.kona \
+    bootctrl.kona.recovery
 
 PRODUCT_PACKAGES_DEBUG += \
     bootctl
@@ -169,15 +169,15 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
-    gralloc.msmnile \
-    hwcomposer.msmnile \
+    gralloc.kona \
+    hwcomposer.kona \
     libdisplayconfig.qti \
     libdisplayconfig.qti.vendor \
     libqdMetaData \
     libqdMetaData.system \
     libtinyxml \
     libvulkan \
-    memtrack.msmnile \
+    memtrack.kona \
     vendor.display.config@1.16 \
     vendor.display.config@2.0 \
     vendor.qti.hardware.display.allocator-service \
@@ -282,11 +282,11 @@ PRODUCT_PACKAGES += \
     
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.lge_msmnile
+    android.hardware.light@2.0-service.lge_kona
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.1-service.lge_msmnile
+    vendor.lineage.livedisplay@2.1-service.lge_kona
 
 # LMK tuning
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -394,7 +394,7 @@ PRODUCT_COPY_FILES += \
 # Permissions (System)
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/permissions/privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-qti.xml \
-    $(COMMON_PATH)/permissions/privapp-permissions-lge_sm8150.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-lge_sm8150.xml
+    $(COMMON_PATH)/permissions/privapp-permissions-lge_sm8250.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-lge_sm8250.xml
 
 # Permissions (Product)
 PRODUCT_COPY_FILES += \
@@ -496,7 +496,7 @@ PRODUCT_PACKAGES += \
 
 # Touch
 PRODUCT_PACKAGES += \
-    vendor.lineage.touch@1.0-service.lge_msmnile
+    vendor.lineage.touch@1.0-service.lge_kona
 
 # Touchscreen
 PRODUCT_PACKAGES += \
