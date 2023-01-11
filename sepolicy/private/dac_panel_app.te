@@ -9,15 +9,17 @@ allow dac_panel_app system_app_data_file:dir create_dir_perms;
 allow dac_panel_app system_app_data_file:file create_file_perms;
 
 allow dac_panel_app { 
-    activity_service 
+    activity_service
     activity_task_service
-    audio_service 
+    audio_service
     audioserver_service
-    autofill_service 
+    autofill_service
+    game_service
     gpu_service
-    media_session_service 
+    media_session_service
+    netstats_service
     permission_checker_service
-    surfaceflinger_service 
+    surfaceflinger_service
 }:service_manager find;
 
 allow dac_panel_app hal_dac_control_hwservice:hwservice_manager find;
