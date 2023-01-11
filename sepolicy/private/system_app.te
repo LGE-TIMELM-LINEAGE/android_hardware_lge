@@ -1,0 +1,2 @@
+allow system_app hal_dac_control_hwservice:hwservice_manager find;
+binder_call(system_app, hal_dac_control_default);
