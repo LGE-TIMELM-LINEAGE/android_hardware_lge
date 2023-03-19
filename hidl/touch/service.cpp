@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 The LineageOS Project
+ * Copyright (C) 2020 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,37 +14,39 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "vendor.lineage.touch@1.0-service.oplus"
+#define LOG_TAG "lineage.touch@1.0-service.lge_kona"
 
 #include <android-base/logging.h>
 #include <hidl/HidlTransportSupport.h>
-#include "HighTouchPollingRate.h"
+
+#include "GloveMode.h"
 #include "TouchscreenGesture.h"
 
-using android::sp;
-using android::hardware::configureRpcThreadpool;
-using android::hardware::joinRpcThreadpool;
-
-using vendor::lineage::touch::V1_0::IHighTouchPollingRate;
-using vendor::lineage::touch::V1_0::ITouchscreenGesture;
-using vendor::lineage::touch::V1_0::implementation::HighTouchPollingRate;
-using vendor::lineage::touch::V1_0::implementation::TouchscreenGesture;
+using ::vendor::lineage::touch::V1_0::IGloveMode;
+using ::vendor::lineage::touch::V1_0::ITouchscreenGesture;
+using ::vendor::lineage::touch::V1_0::implementation::GloveMode;
+using ::vendor::lineage::touch::V1_0::implementation::TouchscreenGesture;
 
 int main() {
-    sp<IHighTouchPollingRate> highToushPollingRateService = new HighTouchPollingRate();
-    sp<ITouchscreenGesture> gestureService = new TouchscreenGesture();
+    android::sp<IGloveMode> gloveMode = new GloveMode();
+    android::sp<ITouchscreenGesture> touchscreenGesture = new TouchscreenGesture();
 
-    configureRpcThreadpool(1, true /*callerWillJoin*/);
+    android::hardware::configureRpcThreadpool(1, true /*callerWillJoin*/);
 
-    if (highToushPollingRateService->registerAsService() != android::OK) {
-        LOG(WARNING) << "Can't register HighTouchPollingRate HAL service";
+    if (gloveMode->registerAsService() != android::OK) {
+        LOG(ERROR) << "Cannot register touchscreen glove HAL service.";
+        return 1;
     }
 
-    if (gestureService->registerAsService() != android::OK) {
-        LOG(WARNING) << "Can't register TouchscreenGesture HAL service";
+    if (touchscreenGesture->registerAsService() != android::OK) {
+        LOG(ERROR) << "Cannot register touchscreen gesture HAL service.";
+        return 1;
     }
 
-    joinRpcThreadpool();
+    LOG(INFO) << "Touchscreen HAL service ready.";
 
-    return 0;  // should never get here
+    android::hardware::joinRpcThreadpool();
+
+    LOG(ERROR) << "Touchscreen HAL service failed to join thread pool.";
+    return 1;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 The LineageOS Project
+ * Copyright (C) 2019 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "vendor.lineage.touch@1.0-service.oplus"
+#define LOG_TAG "TouchscreenGestureService"
+
+#include <fstream>
 
 #include <android-base/file.h>
-#include <android-base/strings.h>
+#include <android-base/logging.h>
 
-#include <TouchscreenGestureConfig.h>
-
-using ::android::base::ReadFileToString;
-using ::android::base::Trim;
-using ::android::base::WriteStringToFile;
-
-namespace {
-
-constexpr const char* kGestureEnableIndepPath = "/proc/touchpanel/double_tap_enable_indep";
-
-}  // anonymous namespace
+#include "TouchscreenGesture.h"
 
 namespace vendor {
 namespace lineage {
@@ -37,35 +29,72 @@ namespace touch {
 namespace V1_0 {
 namespace implementation {
 
+const std::string kAvailableGesturePath = "/sys/devices/virtual/input/lge_touch/swipe_available"; 
+const std::string kGesturePath = "/sys/devices/virtual/input/lge_touch/swipe_enable"; 
+const char* kGestureNames[6] = {
+    "Swipe Down",
+    "Swipe Up",
+    "Swipe Right",
+    "Swipe Left",
+    "Swipe Bottom Right",
+    "Swipe Bottom Left",
+};
+bool gestureAvailable[6] = {false, false, false, false, false, false };
+
+TouchscreenGesture::TouchscreenGesture() {
+    std::ifstream file(kAvailableGesturePath);
+    std::string line;
+    while(getline(file, line)) {
+        if(line == "0 1") {
+            gestureAvailable[0] = true;
+        } else if(line == "1 1") {
+            gestureAvailable[1] = true;
+        } else if(line == "2 1") {
+            gestureAvailable[2] = true;
+        } else if(line == "3 1") {
+            gestureAvailable[3] = true;
+        } else if(line == "4 1") {
+            gestureAvailable[4] = true;
+        } else if(line == "5 1") {
+            gestureAvailable[5] = true;
+        }
+    }
+    for(int i = 0, j = 0; i < 6; i++) {
+        if(gestureAvailable[i]) {
+            GestureInfo g = {i, 247+i, kGestureNames[i]};
+            kGestureInfoMap.emplace(j, g);
+            j++;
+        }
+    }
+}
+
 Return<void> TouchscreenGesture::getSupportedGestures(getSupportedGestures_cb resultCb) {
     std::vector<Gesture> gestures;
 
-    for (const auto& [id, name] : kGestureNames) {
-        if (kSupportedGestures & (1 << id)) {
-            gestures.push_back({static_cast<int>(gestures.size()), name, kGestureStartKey + id});
-        }
+    for (const auto& entry : kGestureInfoMap) {
+        gestures.push_back({entry.first, entry.second.name, entry.second.keycode});
     }
-
     resultCb(gestures);
 
     return Void();
 }
 
-Return<bool> TouchscreenGesture::setGestureEnabled(const Gesture& gesture, bool enabled) {
-    std::string tmp;
-    int contents = 0;
+Return<bool> TouchscreenGesture::setGestureEnabled(
+    const ::vendor::lineage::touch::V1_0::Gesture& gesture, bool enable) {
 
-    if (ReadFileToString(kGestureEnableIndepPath, &tmp)) {
-        contents = std::stoi(Trim(tmp), nullptr, 16);
+    std::ofstream file(kGesturePath);
+    std::map<int32_t, GestureInfo>::iterator it;
+    it = kGestureInfoMap.find(gesture.id);
+    if(it == kGestureInfoMap.end()) {
+        return false;
     }
+    GestureInfo gi = it->second;
 
-    if (enabled) {
-        contents |= (1 << (gesture.keycode - kGestureStartKey));
-    } else {
-        contents &= ~(1 << (gesture.keycode - kGestureStartKey));
-    }
+    std::string output = std::to_string(gi.swipe_id) + " " + std::to_string(enable);
+    
+    file << output;
 
-    return WriteStringToFile(std::to_string(contents), kGestureEnableIndepPath, true);
+    return !file.fail();
 }
 
 }  // namespace implementation

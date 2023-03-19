@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021 The LineageOS Project
+// Copyright (C) 2019 The LineageOS Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,46 +12,36 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-filegroup {
-    name: "vendor.lineage.livedisplay@2.1-oplus-af",
-    srcs: ["AntiFlicker.cpp"],
-}
-
-filegroup {
-    name: "vendor.lineage.livedisplay@2.1-oplus-se",
-    srcs: ["SunlightEnhancement.cpp"],
-}
-
-cc_library_headers {
-    name: "vendor.lineage.livedisplay@2.1-oplus-headers",
-    vendor_available: true,
-    export_include_dirs: ["include"],
-}
-
-cc_binary {
-    name: "vendor.lineage.livedisplay@2.1-service.oplus",
+cc_defaults {
+    name: "livedisplay_lge_kona_defaults",
     defaults: ["hidl_defaults"],
-    init_rc: ["vendor.lineage.livedisplay@2.1-service.oplus.rc"],
-    vintf_fragments: ["vendor.lineage.livedisplay@2.1-service.oplus.xml"],
     relative_install_path: "hw",
     srcs: [
         ":vendor.lineage.livedisplay@2.0-sdm-pa",
         ":vendor.lineage.livedisplay@2.0-sdm-utils",
-        ":vendor.lineage.livedisplay@2.1-oplus-se",
+        "DisplayModes.cpp",
+        "SunlightEnhancement.cpp",
         "service.cpp",
     ],
     shared_libs: [
         "libbase",
         "libbinder",
+        "libcutils",
+        "libdl",
         "libhidlbase",
         "libutils",
         "vendor.lineage.livedisplay@2.0",
         "vendor.lineage.livedisplay@2.1",
     ],
     header_libs: [
-        "kernel_headers.oplus",
         "vendor.lineage.livedisplay@2.0-sdm-headers",
-        "vendor.lineage.livedisplay@2.1-oplus-headers",
     ],
-    proprietary: true,
+}
+
+cc_binary {
+    name: "vendor.lineage.livedisplay@2.1-service.lge_kona",
+    vintf_fragments: ["vendor.lineage.livedisplay@2.1-service.lge_kona.xml"],
+    init_rc: ["vendor.lineage.livedisplay@2.1-service.lge_kona.rc"],
+    defaults: ["livedisplay_lge_kona_defaults"],
+    vendor: true,
 }

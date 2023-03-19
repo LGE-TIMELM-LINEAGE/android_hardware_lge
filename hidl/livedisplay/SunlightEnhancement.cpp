@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 The LineageOS Project
+ * Copyright (C) 2019-2021 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-#include <fcntl.h>
-#include <livedisplay/oplus/SunlightEnhancement.h>
-#include <oplus/oplus_display_panel.h>
+#define LOG_TAG "SunlightEnhancementService"
+
+#include <SunlightEnhancement.h>
+#include <android-base/logging.h>
+#include <fstream>
 
 namespace vendor {
 namespace lineage {
@@ -24,16 +26,22 @@ namespace livedisplay {
 namespace V2_1 {
 namespace implementation {
 
-SunlightEnhancement::SunlightEnhancement() : mOplusDisplayFd(open("/dev/oplus_display", O_RDWR)) {}
+static constexpr const char* kHbmPath =
+    "/sys/devices/virtual/panel/brightness/irc_brighter";
 
 Return<bool> SunlightEnhancement::isEnabled() {
-    unsigned int value;
-    return ioctl(mOplusDisplayFd, PANEL_IOCTL_GET_HBM, &value) == 0 && value > 0;
+    std::ifstream file(kHbmPath);
+    int result = -1;
+    file >> result;
+    LOG(DEBUG) << "Got result " << result << " fail " << file.fail();
+    return !file.fail() && result > 0;
 }
 
 Return<bool> SunlightEnhancement::setEnabled(bool enabled) {
-    unsigned int value = enabled;
-    return isEnabled() == enabled || ioctl(mOplusDisplayFd, PANEL_IOCTL_SET_HBM, &value) == 0;
+    std::ofstream file(kHbmPath);
+    file << (enabled ? "1" : "0");
+    LOG(DEBUG) << "setEnabled fail " << file.fail();
+    return !file.fail();
 }
 
 }  // namespace implementation
