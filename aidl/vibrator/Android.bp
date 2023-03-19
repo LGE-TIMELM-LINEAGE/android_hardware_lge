@@ -2,7 +2,7 @@ Common_CFlags = ["-Wall"]
 Common_CFlags += ["-Werror"]
 
 cc_library_shared {
-    name: "vendor.qti.hardware.vibrator.impl.oplus",
+    name: "vendor.qti.hardware.vibrator.impl.lge",
     vendor: true,
     cflags: Common_CFlags,
     srcs: [
@@ -14,18 +14,18 @@ cc_library_shared {
         "liblog",
         "libqtivibratoreffect",
         "libbinder_ndk",
-        "android.hardware.vibrator-V1-ndk",
+        "android.hardware.vibrator-V1-ndk_platform",
     ],
     export_include_dirs: ["include"]
 }
 
 cc_binary {
-    name: "vendor.qti.hardware.vibrator.service.oplus",
+    name: "vendor.qti.hardware.vibrator.service.lge",
     vendor: true,
     relative_install_path: "hw",
-    init_rc: ["vendor.qti.hardware.vibrator.service.oplus.rc"],
+    init_rc: ["vendor.qti.hardware.vibrator.service.lge.rc"],
     vintf_fragments: [
-        "vendor.qti.hardware.vibrator.service.oplus.xml",
+        "vendor.qti.hardware.vibrator.service.lge.xml",
     ],
     cflags: Common_CFlags,
     srcs: [
@@ -36,13 +36,13 @@ cc_binary {
         "libutils",
         "libbase",
         "libbinder_ndk",
-        "android.hardware.vibrator-V1-ndk",
-        "vendor.qti.hardware.vibrator.impl.oplus",
+        "android.hardware.vibrator-V1-ndk_platform",
+        "vendor.qti.hardware.vibrator.impl.lge",
     ],
 }
 
 cc_library_shared {
-    name: "vendor.qti.hardware.vibrator.offload.impl.oplus",
+    name: "vendor.qti.hardware.vibrator.offload.impl.lge",
     vendor: true,
     cflags: Common_CFlags + ["-DTARGET_SUPPORTS_OFFLOAD"],
     srcs: [
@@ -56,18 +56,18 @@ cc_library_shared {
         "libqtivibratoreffect",
         "libqtivibratoreffectoffload",
         "libbinder_ndk",
-        "android.hardware.vibrator-V1-ndk",
+        "android.hardware.vibrator-V1-ndk_platform",
     ],
     export_include_dirs: ["include"],
 }
 
 cc_binary {
-    name: "vendor.qti.hardware.vibrator.offload.service.oplus",
+    name: "vendor.qti.hardware.vibrator.offload.service.lge",
     vendor: true,
     relative_install_path: "hw",
-    init_rc: ["vendor.qti.hardware.vibrator.offload.service.oplus.rc"],
+    init_rc: ["vendor.qti.hardware.vibrator.offload.service.lge.rc"],
     vintf_fragments: [
-        "vendor.qti.hardware.vibrator.offload.service.oplus.xml",
+        "vendor.qti.hardware.vibrator.offload.service.lge.xml",
     ],
     cflags: Common_CFlags + ["-DTARGET_SUPPORTS_OFFLOAD"],
     srcs: [
@@ -78,7 +78,7 @@ cc_binary {
         "libutils",
         "libbase",
         "libbinder_ndk",
-        "android.hardware.vibrator-V1-ndk",
-        "vendor.qti.hardware.vibrator.offload.impl.oplus",
+        "android.hardware.vibrator-V1-ndk_platform",
+        "vendor.qti.hardware.vibrator.offload.impl.lge",
     ],
 }

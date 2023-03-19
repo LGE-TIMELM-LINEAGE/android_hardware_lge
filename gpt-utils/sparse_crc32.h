@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 The LineageOS Project
+ * Copyright (C) 2010 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package vendor.lge.hardware.biometrics.fingerprint@2.1;
+#ifndef _LIBSPARSE_SPARSE_CRC32_H_
+#define _LIBSPARSE_SPARSE_CRC32_H_
 
-interface IBiometricsFingerprintClientCallbackEx {
-    oneway onEngineeringInfoUpdated(uint32_t lenth, vec<uint32_t> keys, vec<string> values);
-    oneway onFingerprintCmd(int32_t cmdId, vec<uint32_t> result, uint32_t resultLen);
-};
+#include <stdint.h>
+
+uint32_t sparse_crc32(uint32_t crc, const void* buf, size_t size);
+
+#endif

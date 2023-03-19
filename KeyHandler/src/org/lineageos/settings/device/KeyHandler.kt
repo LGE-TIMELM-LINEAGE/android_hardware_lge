@@ -1,93 +1,92 @@
 /*
- * Copyright (C) 2021-2022 The LineageOS Project
+ * Copyright (C) 2021 The LineageOS Project
  * SPDX-License-Identifier: Apache-2.0
  */
 
 package org.lineageos.settings.device
 
 import android.app.NotificationManager
+import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.hardware.input.InputManager
+import android.content.SharedPreferences
 import android.media.AudioManager
 import android.media.AudioSystem
-import android.os.VibrationAttributes
+import android.os.IBinder
+import android.os.UEventObserver
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.provider.Settings
 import android.view.KeyEvent
-import com.android.internal.os.DeviceKeyHandler
+import androidx.preference.PreferenceManager
 
-import java.io.File
-import java.util.concurrent.Executors
-
-class KeyHandler(context: Context) : DeviceKeyHandler {
-    private val audioManager = context.getSystemService(AudioManager::class.java)!!
-    private val inputManager = context.getSystemService(InputManager::class.java)!!
-    private val notificationManager = context.getSystemService(NotificationManager::class.java)!!
-    private val vibrator = context.getSystemService(Vibrator::class.java)!!
-
-    private val packageContext = context.createPackageContext(
-        KeyHandler::class.java.getPackage()!!.name, 0
-    )
-    private val sharedPreferences
-        get() = packageContext.getSharedPreferences(
-            packageContext.packageName + "_preferences",
-            Context.MODE_PRIVATE or Context.MODE_MULTI_PROCESS
-        )
-
-    private val executorService = Executors.newSingleThreadExecutor()
+class KeyHandler : Service() {
+    private lateinit var audioManager: AudioManager
+    private lateinit var notificationManager: NotificationManager
+    private lateinit var vibrator: Vibrator
+    private lateinit var sharedPreferences: SharedPreferences
 
     private var wasMuted = false
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val stream = intent.getIntExtra(AudioManager.EXTRA_VOLUME_STREAM_TYPE, -1)
             val state = intent.getBooleanExtra(AudioManager.EXTRA_STREAM_VOLUME_MUTED, false)
-            if (stream == AudioSystem.STREAM_MUSIC && !state) {
+            if (stream == AudioSystem.STREAM_MUSIC && state == false) {
                 wasMuted = false
             }
         }
     }
 
-    init {
-        context.registerReceiver(
+    private val alertSliderEventObserver = object : UEventObserver() {
+        private val lock = Any()
+
+        override fun onUEvent(event: UEvent) {
+            synchronized(lock) {
+                event.get("SWITCH_STATE")?.let {
+                    handleMode(it.toInt())
+                    return
+                }
+                event.get("STATE")?.let {
+                    val none = it.contains("USB=0")
+                    val vibration = it.contains("HOST=0")
+                    val silent = it.contains("null)=0")
+
+                    if (none && !vibration && !silent) {
+                        handleMode(POSITION_BOTTOM)
+                    } else if (!none && vibration && !silent) {
+                        handleMode(POSITION_MIDDLE)
+                    } else if (!none && !vibration && silent) {
+                        handleMode(POSITION_TOP)
+                    }
+
+                    return
+                }
+            }
+        }
+    }
+
+    override fun onCreate() {
+        audioManager = getSystemService(AudioManager::class.java)
+        notificationManager = getSystemService(NotificationManager::class.java)
+        vibrator = getSystemService(Vibrator::class.java)
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
+        registerReceiver(
             broadcastReceiver,
             IntentFilter(AudioManager.STREAM_MUTE_CHANGED_ACTION)
         )
+        alertSliderEventObserver.startObserving("tri-state-key")
+        alertSliderEventObserver.startObserving("tri_state_key")
     }
 
-    override fun handleKeyEvent(event: KeyEvent): KeyEvent? {
-        if (event.action != KeyEvent.ACTION_DOWN) {
-            return event
-        }
-
-        val deviceName = inputManager.getInputDevice(event.deviceId).name
-
-        if (deviceName != "oplus,hall_tri_state_key" && deviceName != "oplus,tri-state-key") {
-            return event
-        }
-
-        when (File("/proc/tristatekey/tri_state").readText().trim()) {
-            "1" -> handleMode(POSITION_TOP)
-            "2" -> handleMode(POSITION_MIDDLE)
-            "3" -> handleMode(POSITION_BOTTOM)
-        }
-
-        return null
-    }
+    override fun onBind(intent: Intent?): IBinder? = null
 
     private fun vibrateIfNeeded(mode: Int) {
         when (mode) {
-            AudioManager.RINGER_MODE_VIBRATE -> vibrator.vibrate(
-                MODE_VIBRATION_EFFECT,
-                HARDWARE_FEEDBACK_VIBRATION_ATTRIBUTES
-            )
-            AudioManager.RINGER_MODE_NORMAL -> vibrator.vibrate(
-                MODE_NORMAL_EFFECT,
-                HARDWARE_FEEDBACK_VIBRATION_ATTRIBUTES
-            )
+            AudioManager.RINGER_MODE_VIBRATE -> vibrator.vibrate(MODE_VIBRATION_EFFECT)
+            AudioManager.RINGER_MODE_NORMAL -> vibrator.vibrate(MODE_NORMAL_EFFECT)
         }
     }
 
@@ -101,43 +100,31 @@ class KeyHandler(context: Context) : DeviceKeyHandler {
             else -> return
         }
 
-        executorService.submit {
-            when (mode) {
-                AudioManager.RINGER_MODE_SILENT -> {
-                    setZenMode(Settings.Global.ZEN_MODE_OFF)
-                    audioManager.ringerModeInternal = mode
-                    if (muteMedia) {
-                        audioManager.adjustVolume(AudioManager.ADJUST_MUTE, 0)
-                        wasMuted = true
-                    }
-                }
-                AudioManager.RINGER_MODE_VIBRATE, AudioManager.RINGER_MODE_NORMAL -> {
-                    setZenMode(Settings.Global.ZEN_MODE_OFF)
-                    audioManager.ringerModeInternal = mode
-                    if (muteMedia && wasMuted) {
-                        audioManager.adjustVolume(AudioManager.ADJUST_UNMUTE, 0)
-                    }
-                }
-                ZEN_PRIORITY_ONLY, ZEN_TOTAL_SILENCE, ZEN_ALARMS_ONLY -> {
-                    audioManager.ringerModeInternal = AudioManager.RINGER_MODE_NORMAL
-                    setZenMode(mode - ZEN_OFFSET)
-                    if (muteMedia && wasMuted) {
-                        audioManager.adjustVolume(AudioManager.ADJUST_UNMUTE, 0)
-                    }
+        when (mode) {
+            AudioManager.RINGER_MODE_SILENT -> {
+                notificationManager.setZenMode(Settings.Global.ZEN_MODE_OFF, null, TAG)
+                audioManager.setRingerModeInternal(mode)
+                if (muteMedia) {
+                    audioManager.adjustVolume(AudioManager.ADJUST_MUTE, 0)
+                    wasMuted = true
                 }
             }
-            vibrateIfNeeded(mode)
+            AudioManager.RINGER_MODE_VIBRATE, AudioManager.RINGER_MODE_NORMAL -> {
+                notificationManager.setZenMode(Settings.Global.ZEN_MODE_OFF, null, TAG)
+                audioManager.setRingerModeInternal(mode)
+                if (muteMedia && wasMuted) {
+                    audioManager.adjustVolume(AudioManager.ADJUST_UNMUTE, 0)
+                }
+            }
+            ZEN_PRIORITY_ONLY, ZEN_TOTAL_SILENCE, ZEN_ALARMS_ONLY -> {
+                audioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL)
+                notificationManager.setZenMode(mode - ZEN_OFFSET, null, TAG)
+                if (muteMedia && wasMuted) {
+                    audioManager.adjustVolume(AudioManager.ADJUST_UNMUTE, 0)
+                }
+            }
         }
-    }
-
-    private fun setZenMode(zenMode: Int) {
-        // Set zen mode
-        notificationManager.setZenMode(zenMode, null, TAG)
-
-        // Wait until zen mode change is committed
-        while (notificationManager.getZenMode() != zenMode) {
-            Thread.sleep(10)
-        }
+        vibrateIfNeeded(mode)
     }
 
     companion object {
@@ -159,10 +146,6 @@ class KeyHandler(context: Context) : DeviceKeyHandler {
         private const val ZEN_PRIORITY_ONLY = 3
         private const val ZEN_TOTAL_SILENCE = 4
         private const val ZEN_ALARMS_ONLY = 5
-
-        // Vibration attributes
-        private val HARDWARE_FEEDBACK_VIBRATION_ATTRIBUTES =
-            VibrationAttributes.createForUsage(VibrationAttributes.USAGE_HARDWARE_FEEDBACK)
 
         // Vibration effects
         private val MODE_NORMAL_EFFECT = VibrationEffect.get(VibrationEffect.EFFECT_HEAVY_CLICK)

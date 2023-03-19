@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package vendor.oplus.hardware.biometrics.fingerprint@2.1;
+package vendor.lge.hardware.biometrics.fingerprint@2.1;
 
 import android.hardware.biometrics.fingerprint@2.1::types;
 import android.hardware.biometrics.fingerprint@2.3;

@@ -14,48 +14,51 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "DisplayModesService"
-
 #include "DisplayModes.h"
-
 #include <android-base/logging.h>
-#include <android-base/properties.h>
-
 #include <fstream>
 
 namespace vendor {
 namespace lineage {
 namespace livedisplay {
-namespace V2_1 {
+namespace V2_0 {
 namespace implementation {
 
-static const std::string kModePath = "/sys/devices/virtual/panel/img_tune/screen_mode";
-static const std::string kDefaultPath = "/data/vendor/display/default_screen_mode";
+static constexpr const char* kModePath = "/sys/devices/virtual/panel/img_tune/screen_mode";
+static constexpr const char* kDefaultPath = "/data/vendor/display/default_screen_mode";
 
-// Mode ids here must match qdcm display mode ids
 const std::map<int32_t, DisplayModes::ModeInfo> DisplayModes::kModeMap = {
-    {0, {"Auto", "0"}},
-    {1, {"Cinema", "1"}},
-    {2, {"Photos", "2"}},
-    {3, {"Web", "3"}},
-    {4, {"Sports", "4"}},
-    {5, {"Game", "5"}},
+    {0, {"Cinema", "1"}},
+    {1, {"Sports", "4"}},
+    {2, {"Game", "5"}},
+    {3, {"Photos", "2"}},
+    {4, {"Web", "3"}},
+//    {5, {"Expert", "10"}},
 };
 
-DisplayModes::DisplayModes(std::shared_ptr<V2_0::sdm::SDMController> controller)
-    : mController(std::move(controller)), mCurrentModeId(0), mDefaultModeId(0) {
+DisplayModes::DisplayModes() {
     std::ifstream defaultFile(kDefaultPath);
+    std::string value;
 
-    defaultFile >> mDefaultModeId;
-    LOG(DEBUG) << "Default file read result " << mDefaultModeId << " fail " << defaultFile.fail();
+    defaultFile >> value;
+    LOG(DEBUG) << "Default file read result " << value << " fail " << defaultFile.fail();
+    if (defaultFile.fail()) {
+        return;
+    }
+
+    for (const auto& entry : kModeMap) {
+        if (value == entry.second.value) {
+            mDefaultModeId = entry.first;
+            break;
+        }
+    }
 
     setDisplayMode(mDefaultModeId, false);
 }
 
-// Methods from ::vendor::lineage::livedisplay::V2_1::IDisplayModes follow.
+// Methods from ::vendor::lineage::livedisplay::V2_0::IDisplayModes follow.
 Return<void> DisplayModes::getDisplayModes(getDisplayModes_cb resultCb) {
-    std::vector<V2_0::DisplayMode> modes;
-
+    std::vector<DisplayMode> modes;
     for (const auto& entry : kModeMap) {
         modes.push_back({entry.first, entry.second.name});
     }
@@ -64,7 +67,20 @@ Return<void> DisplayModes::getDisplayModes(getDisplayModes_cb resultCb) {
 }
 
 Return<void> DisplayModes::getCurrentDisplayMode(getCurrentDisplayMode_cb resultCb) {
-    resultCb({mCurrentModeId, kModeMap.at(mCurrentModeId).name});
+    int32_t currentModeId = mDefaultModeId;
+    std::ifstream modeFile(kModePath);
+    std::string value;
+
+    modeFile >> value;
+    if (!modeFile.fail()) {
+        for (const auto& entry : kModeMap) {
+            if (value == entry.second.value) {
+                currentModeId = entry.first;
+                break;
+            }
+        }
+    }
+    resultCb({currentModeId, kModeMap.at(currentModeId).name});
     return Void();
 }
 
@@ -81,27 +97,22 @@ Return<bool> DisplayModes::setDisplayMode(int32_t modeID, bool makeDefault) {
     std::ofstream modeFile(kModePath);
     modeFile << iter->second.value;
     if (modeFile.fail()) {
-        LOG(ERROR) << "Failed to write to " << (kModePath);
         return false;
     }
-    mController->setActiveDisplayMode(iter->first);
-    mCurrentModeId = iter->first;
+
     if (makeDefault) {
         std::ofstream defaultFile(kDefaultPath);
         defaultFile << iter->second.value;
-        if (!defaultFile.fail()) {
-            mController->setDefaultDisplayMode(iter->first);
-            mDefaultModeId = iter->first;
+        if (defaultFile.fail()) {
+            return false;
         }
-    }
-    if (mOnDisplayModeSet) {
-        mOnDisplayModeSet();
+        mDefaultModeId = iter->first;
     }
     return true;
 }
 
-}  // namespace implementation
-}  // namespace V2_1
+}  // namespace sdm
+}  // namespace V2_0
 }  // namespace livedisplay
 }  // namespace lineage
 }  // namespace vendor

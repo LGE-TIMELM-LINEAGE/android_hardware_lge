@@ -1,5 +1,5 @@
 android_app {
-    name: "OplusDoze",
+    name: "LgeDoze",
     defaults: ["SettingsLibDefaults"],
 
     srcs: ["src/**/*.kt"],
