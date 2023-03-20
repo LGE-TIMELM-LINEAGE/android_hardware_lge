@@ -120,7 +120,12 @@ class BiometricsFingerprint : public IBiometricsFingerprint,
     }
 
     bool setFpPress(unsigned int value) {
-      return isUdfps() && fps_power(mScannerFd, value) && fps_init(mScannerFd, value) == 0;
+      if(value == 1){
+      return isUdfps() && ioctl(mScannerFd, FP_POWER_ONOFF,  &value) && ioctl(mScannerFd, INT_TRIGGER_INIT, 3) == 0;
+    }
+    else {
+      return isUdfps() && ioctl(mScannerFd, FP_POWER_ONOFF, &value) && ioctl(mScannerFd, INT_TRIGGER_CLOSE, 1) == 0;
+    }
     }
 
     sp<ILgeBiometricsFingerprint> mLgeBiometricsFingerprint;
