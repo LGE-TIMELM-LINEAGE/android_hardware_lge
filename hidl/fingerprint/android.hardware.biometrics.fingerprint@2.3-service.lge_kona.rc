@@ -1,5 +1,5 @@
-service vendor.fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.lge_kona
-    interface android.hardware.biometrics.fingerprint@2.1::IBiometricsFingerprint default
+service vendor.fps_hal /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.3-service.lge_kona
+    interface android.hardware.biometrics.fingerprint@2.3::IBiometricsFingerprint default
     oneshot
     # "class hal" causes a race condition on some devices due to files created
     # in /data. As a workaround, postpone startup until later in boot once
