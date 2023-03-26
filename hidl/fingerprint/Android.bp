@@ -1,5 +1,5 @@
 cc_binary {
-    name: "android.hardware.biometrics.fingerprint@2.3-service.lge",
+    name: "android.hardware.biometrics.fingerprint@2.3-service.lge_kona",
     defaults: ["hidl_defaults"],
     init_rc: ["android.hardware.biometrics.fingerprint@2.3-service.lge_kona.rc"],
     vintf_fragments: ["android.hardware.biometrics.fingerprint@2.3-service.lge_kona.xml"],
