@@ -28,6 +28,7 @@
 #include <lge/lge_et713.h>
 #include <lge/lge_backlight.h>
 #include <vendor/lge/hardware/biometrics/fingerprint/2.2/IBiometricsFingerprint.h>
+#include <vendor/lge/hardware/biometrics/fingerprint/2.2/ILgeBiometricsFingerprint.h>
 
 namespace android {
 namespace hardware {
@@ -48,7 +49,7 @@ using ::android::hardware::biometrics::fingerprint::V2_2::IBiometricsFingerprint
 using ::android::hardware::biometrics::fingerprint::V2_3::IBiometricsFingerprint;
 
 using ILgeBiometricsFingerprint =
-        vendor::lge::hardware::biometrics::fingerprint::V2_2::IBiometricsFingerprint;
+        vendor::lge::hardware::biometrics::fingerprint::V2_2::ILgeBiometricsFingerprint;
 using ::vendor::lge::hardware::biometrics::fingerprint::V2_2::
         IBiometricsFingerprintClientCallbackEx;
 
