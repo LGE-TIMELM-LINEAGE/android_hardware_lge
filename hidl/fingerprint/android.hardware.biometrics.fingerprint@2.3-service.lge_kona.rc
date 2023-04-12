@@ -1,0 +1,4 @@
+service vendor.fps_hal_lge /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.3-service.lge_kona
+    class late_start
+    user system
+    group system

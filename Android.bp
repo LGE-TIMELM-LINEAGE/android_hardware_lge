@@ -1,2 +1,6 @@
 soong_namespace {
+<<<<<<< HEAD
+=======
+    imports: ["hardware/qcom-caf/bootctrl"],
+>>>>>>> ltl_lge_hardware/lineage-19.1
 }
