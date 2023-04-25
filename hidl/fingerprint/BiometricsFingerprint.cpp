@@ -15,7 +15,7 @@
  */
 
 #define LOG_TAG "android.hardware.biometrics.fingerprint@2.3-service.lge"
-
+#include <android-base/logging.h>
 #include "BiometricsFingerprint.h"
 
 namespace android {
@@ -28,7 +28,6 @@ namespace implementation {
 BiometricsFingerprint::BiometricsFingerprint()
     : mScannerFd(open("/dev/esfp0", O_RDWR)), mBacklightFd(open("/sys/devices/virtual/panel/brightness/fp_lhbm",O_WRONLY))  {
     mLgeBiometricsFingerprint = ILgeBiometricsFingerprint::getService();
-    mLgeBiometricsFingerprint->setHalCallback(this);
 }
 
 Return<uint64_t> BiometricsFingerprint::setNotify(
