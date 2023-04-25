@@ -10,6 +10,7 @@ cc_binary {
         "service.cpp",
     ],
     shared_libs: [
+        "liblog",
         "libbase",
         "libhidlbase",
         "libutils",
@@ -28,7 +29,7 @@ cc_library {
         "libcutils",
         "liblog",
     ],
-    device_specific: true,
+    vendor: true,
 }
 
 cc_library_static {
